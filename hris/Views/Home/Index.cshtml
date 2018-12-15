@@ -1,0 +1,88 @@
+﻿@{
+    Layout = null;
+}
+
+@{
+    ViewBag.Title = "Login";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Limitless - Responsive Web Application Kit by Eugene Kopyov</title>
+    <!-- Global stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+    @Styles.Render("~/Content/icons/icomoon/styles.css")
+    @Styles.Render("~/Content/bootstrap.min.css")
+    @Styles.Render("~/Content/bootstrap_limitless.min.css")
+    @Styles.Render("~/Content/layout.min.css")
+    @Styles.Render("~/Content/components.min.css")
+    @Styles.Render("~/Content/colors.min.css")
+    @Styles.Render("~/Content/plugins/sweetalert2/sweetalert2.min.css")
+    <!-- /global stylesheets -->
+
+</head>
+<body>
+    <!-- Page content -->
+    <div class="page-content">
+        <!-- Main content -->
+        <div class="content-wrapper">
+            <!-- Content area -->
+            <div class="content d-flex justify-content-center align-items-center">
+                <!-- Login form -->
+                <form class="login-form" href="@Url.Action("Login")" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="card mb-0">
+                        <div class="card-body">
+                            <div class="text-center mb-3">
+                                <i class="icon-reading icon-2x text-slate-300 border-slate-300 border-3 rounded-round p-3 mb-3 mt-1"></i>
+                                <h5 class="mb-0">HRIS</h5>
+                                @*<span class="d-block text-muted">Enter your credentials below</span>*@
+                            </div>
+                            <div class="form-group form-group-feedback form-group-feedback-left">
+                                <input name="user_id" type="text" class="form-control" placeholder="Username" required>
+                                <div class="form-control-feedback">
+                                    <i class="icon-user text-muted"></i>
+                                </div>
+                            </div>
+                            <div class="form-group form-group-feedback form-group-feedback-left">
+                                <input name="password" type="password" class="form-control" placeholder="Password" required>
+                                <div class="form-control-feedback">
+                                    <i class="icon-lock2 text-muted"></i>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-block">Sign in <i class="icon-circle-right2 ml-2"></i></button>
+                            </div>
+                            <div class="text-center">
+                                <a href="#">Forgot password?</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- /login form -->
+            </div>
+            <!-- /content area -->
+        </div>
+        <!-- /main content -->
+    </div>
+    <!-- /page content -->
+</body>
+</html>
+
+@Scripts.Render("~/Scripts/jquery-3.3.1.min.js")
+@Scripts.Render("~/Scripts/plugins/alerts/sweetalert2.all.min.js")
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMsg))
+{
+    <script type="text/javascript">
+        Swal({
+            type: 'error',
+            title: 'Oops...',
+            text: '@ViewBag.ErrorMsg',
+            timer: 1000
+        })
+    </script>
+}

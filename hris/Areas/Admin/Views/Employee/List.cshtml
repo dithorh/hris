@@ -1,0 +1,360 @@
+﻿@model IEnumerable<hris.Models.karyawan>
+
+@{
+    ViewBag.Title = "List";
+}
+<style>
+    th, td {
+        white-space: nowrap;
+    }
+
+    div.dt-button-collection.four-column {
+        width: 700px;
+    }
+
+    .dt-button-collection.four-column button.buttons-columnVisibility:before,
+    .dt-button-collection.four-column button.buttons-columnVisibility.active span:before {
+        display: block;
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        box-sizing: border-box;
+    }
+
+    .dt-button-collection.four-column button.buttons-columnVisibility:before {
+        content: ' ';
+        margin-top: 4px;
+        margin-left: -5px;
+        border: 1px solid #fff;
+        border-radius: 3px;
+    }
+
+    .dt-button-collection.four-column button.buttons-columnVisibility.active span:before {
+        content: '\2714';
+        margin-top: 0;
+        margin-left: -5px;
+        text-align: center;
+    }
+
+    .dt-button-collection.four-column button.buttons-columnVisibility span {
+        margin-left: 15px;
+    }
+</style>
+<div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+        <div class="page-title d-flex">
+            <h4><span class="font-weight-semibold">List Karyawan</span></h4>
+            <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+    </div>
+
+    <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+        <div class="d-flex">
+            <div class="breadcrumb">
+                <a href="#" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+                <a href="@Url.Action("List")" class="breadcrumb-item">Karyawan</a>
+                <span class="breadcrumb-item active">List Karyawan</span>
+            </div>
+
+            <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="card">
+        <div class="card-header header-elements-inline">
+            <div class="card-title"></div>
+            <div class="header-elements">
+                <div class="list-icons">
+                    <a class="list-icons-item" data-action="collapse"></a>
+                    <a class="list-icons-item" data-action="reload"></a>
+                    <a class="list-icons-item" data-action="remove"></a>
+                </div>
+            </div>
+        </div>
+        <table class="table dataTables-export">
+            <thead>
+                <tr>
+                    <th class="no-sort" style="width:13px;"></th>
+                    <th>No Absen</th>
+                    <th>Nama</th>
+                    <th>Status Karyawan</th>
+                    <th>Status Team</th>
+                    <th>Elnusa Status</th>
+                    <th>Jobgrade</th>
+                    <th>Jabatan</th>
+                    <th>Pendidikan Terakhir</th>
+                    <th>Inisial</th>
+                    <th>Karyawan ID</th>
+                    <th>Band</th>
+                    <th>Divisi</th>
+                    <th>Golongan Bisnis</th>
+                    <th>Tgl Masuk</th>
+                    <th>Tgl Lahir</th>
+                    <th>Tempat Lahir</th>
+                    <th>Jenis Kelamin</th>
+                    <th>Agama</th>
+                    <th>Alamat</th>
+                    <th>Telp Rumah</th>
+                    <th>Hp</th>
+                    <th>Status</th>
+                    <th>Nama Sekolah</th>
+                    <th>Jurusan</th>
+                    <th>Tgl Berhenti</th>
+                    <th>Golongan</th>
+                    <th>Keterangan</th>
+                    <th>No Rek Mandiri</th>
+                    <th>No Rek BNI</th>
+                    <th>Masa Kerja</th>
+                    <th>Kelompok Masa Kerja</th>
+                    <th>Usia</th>
+                    <th>Kelompok Usia</th>
+                    <th>Status Kerja</th>
+                    <th>Alasan Berhenti</th>
+                    <th>Elnusa Departement</th>
+                    <th>Technical Talent</th>
+                    <th class="no-sort">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td></td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NOABSEN)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NAMA_LENGKAP)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.STATUS_KARYAWAN)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.STATUS_TEAM)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ELNUSA_STATUS)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.JOBGRADE)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.JABATAN)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PEND_TERAKHIR)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.INISIAL)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.KARYAWAN_ID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BAND)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DIVISI)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GOLONGAN_BISNIS)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TANGGAL_MASUK)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TGL_LAHIR)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TEMPAT_LAHIR)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.JENIS_KELAMIN)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AGAMA)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ALAMAT)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TELP_RUMAH)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.HP)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.STATUS)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NAMA_SEKOLAH)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.JURUSAN)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TANGGAL_BERHENTI)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GOLONGAN)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.KETERANGAN)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NOMOR_REKENING)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NOMOR_REKENING_BNI)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MASA_KERJA)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.KELOMPOK_MASA_KERJA)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.USIA)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.KELOMPOK_USIA)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.STATUS_KERJA)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ALASAN_BERHENTI)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ELNUSA_DEPARTMENT)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TECHNICAL_TALENT)
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Edit",new { id = item.NOABSEN })" class="text-inverse p-r-10" data-toggle="tooltip" title="" data-original-title="Edit"><i class="icon-pencil7"></i></a>
+                            <a href="javascript:deleteItem(@item.NOABSEN);" class="text-inverse" title="" data-toggle="tooltip" data-original-title="Delete"><i class="icon-eraser2"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        var DatatableFixedColumns = function () {
+
+            // Basic Datatable examples
+            var _componentDatatableFixedColumns = function () {
+                if (!$().DataTable) {
+                    console.warn('Warning - datatables.min.js is not loaded.');
+                    return;
+                }
+
+                // Setting datatable defaults
+                $.extend($.fn.dataTable.defaults, {
+                    autoWidth: false,
+                    columnDefs: [{
+                        orderable: false,
+                        width: 100,
+                        targets: 'no-sort'
+                    }],
+                    dom: '<"datatable-header"fBl><"datatable-scroll-wrap"t><"datatable-footer"ip>',
+                    language: {
+                        search: '<span>Filter:</span> _INPUT_',
+                        searchPlaceholder: 'Type to filter...',
+                        lengthMenu: '<span>Show:</span> _MENU_',
+                        paginate: { 'first': 'First', 'last': 'Last', 'next': $('html').attr('dir') == 'rtl' ? '&larr;' : '&rarr;', 'previous': $('html').attr('dir') == 'rtl' ? '&rarr;' : '&larr;' }
+                    }
+                });
+
+                $('.dataTables-export').DataTable({
+                    columnDefs: [{
+                        orderable: false,
+                        width: 100,
+                        targets: 'no-sort'
+                    },
+                    {
+                        targets: 0,
+                        checkboxes: {
+                            selectRow: true
+                        }
+                    }],
+                    scrollX: true,
+                    scrollY: '350px',
+                    scrollCollapse: true,
+                    fixedColumns: {
+                        leftColumns: 1,
+                        rightColumns: 1
+                    },
+                    buttons: [
+                    {
+                        className: 'btn bg-teal',
+                        text: '<i class="icon-plus2 mr-2"></i>Add',
+                        action: function(e, dt, node, config) {
+                            window.location.href = "@Url.Action("Create")";
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        className: 'btn btn-light',
+                        text: '<i class="icon-file-spreadsheet mr-2"></i>EXL',
+                        exportOptions: {
+                            columns: [0, ':visible', 'th:not(:last-child)'],
+                            rows: { selected: true }
+                        }
+                    },
+                    {
+                        extend: 'colvis',
+                        text: '<i class="icon-grid7"></i>',
+                        className: 'btn bg-blue btn-icon dropdown-toggle',
+                        columns: ':not(.no-sort)',
+                        collectionLayout: ['four-column', ':not(.no-sort)'],
+                        postfixButtons: ['colvisRestore']
+                    }],
+                    select: {
+                        style: 'multi'
+                    },
+                    order: [[1, 'asc']]
+                });
+            };
+
+            // Select2 for length menu styling
+            var _componentSelect2 = function () {
+                if (!$().select2) {
+                    console.warn('Warning - select2.min.js is not loaded.');
+                    return;
+                }
+
+                // Initialize
+                $('.dataTables_length select').select2({
+                    minimumResultsForSearch: Infinity,
+                    dropdownAutoWidth: true,
+                    width: 'auto'
+                });
+            };
+
+            //
+            // Return objects assigned to module
+            //
+
+            return {
+                init: function () {
+                    _componentDatatableFixedColumns();
+                    //_componentSelect2();
+                }
+            }
+        }();
+
+
+        // Initialize module
+        // ------------------------------
+
+        document.addEventListener('DOMContentLoaded', function () {
+            DatatableFixedColumns.init();
+        });
+    </script>
+}

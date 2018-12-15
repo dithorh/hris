@@ -1,0 +1,352 @@
+﻿@model IEnumerable<hris.Models.karyawan>
+
+@{
+    ViewBag.Title = "List";
+}
+<style>
+    th, td {
+        white-space: nowrap;
+    }
+
+    div.dt-button-collection.four-column {
+        width: 700px;
+    }
+
+    .dt-button-collection.four-column button.buttons-columnVisibility:before,
+    .dt-button-collection.four-column button.buttons-columnVisibility.active span:before {
+        display: block;
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        box-sizing: border-box;
+    }
+
+    .dt-button-collection.four-column button.buttons-columnVisibility:before {
+        content: ' ';
+        margin-top: 4px;
+        margin-left: -5px;
+        border: 1px solid #fff;
+        border-radius: 3px;
+    }
+
+    .dt-button-collection.four-column button.buttons-columnVisibility.active span:before {
+        content: '\2714';
+        margin-top: 0;
+        margin-left: -5px;
+        text-align: center;
+    }
+
+    .dt-button-collection.four-column button.buttons-columnVisibility span {
+        margin-left: 15px;
+    }
+</style>
+<div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+        <div class="page-title d-flex">
+            <h4><span class="font-weight-semibold">List Karyawan</span></h4>
+            <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+    </div>
+
+    <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+        <div class="d-flex">
+            <div class="breadcrumb">
+                <a href="#" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+                <a href="@Url.Action("List")" class="breadcrumb-item">Karyawan</a>
+                <span class="breadcrumb-item active">List Karyawan</span>
+            </div>
+
+            <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="card">
+        <div class="card-header header-elements-inline">
+            <div class="card-title"></div>
+            <div class="header-elements">
+                <div class="list-icons">
+                    <a class="list-icons-item" data-action="collapse"></a>
+                    <a class="list-icons-item" data-action="reload"></a>
+                    <a class="list-icons-item" data-action="remove"></a>
+                </div>
+            </div>
+        </div>
+        <table class="table dataTables-export" data-url="@Url.Content("~/Employee/List")">
+            <thead>
+                <tr>
+                    <th class="no-sort" style="width:13px;"></th>
+                    <th>No Absen</th>
+                    <th>Nama</th>
+                    <th>Status Karyawan</th>
+                    <th>Status Team</th>
+                    <th>Elnusa Status</th>
+                    <th>Jobgrade</th>
+                    <th>Jabatan</th>
+                    <th>Pendidikan Terakhir</th>
+                    <th>Inisial</th>
+                    <th>Karyawan ID</th>
+                    <th>Band</th>
+                    <th>Divisi</th>
+                    <th>Golongan Bisnis</th>
+                    <th>Tgl Masuk</th>
+                    <th>Tgl Lahir</th>
+                    <th>Tempat Lahir</th>
+                    <th>Jenis Kelamin</th>
+                    <th>Agama</th>
+                    <th>Alamat</th>
+                    <th>Telp Rumah</th>
+                    <th>Hp</th>
+                    <th>Status</th>
+                    <th>Nama Sekolah</th>
+                    <th>Jurusan</th>
+                    <th>Tgl Berhenti</th>
+                    <th>Golongan</th>
+                    <th>Keterangan</th>
+                    <th>No Rek Mandiri</th>
+                    <th>No Rek BNI</th>
+                    <th>Masa Kerja</th>
+                    <th>Kelompok Masa Kerja</th>
+                    <th>Usia</th>
+                    <th>Kelompok Usia</th>
+                    <th>Status Kerja</th>
+                    <th>Alasan Berhenti</th>
+                    <th>Elnusa Departement</th>
+                    <th>Technical Talent</th>
+                    <th class="no-sort">Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        var dataTable = {
+            table: null,
+            initializeDataTable: function () {
+                var $dtable = $('.dataTables-export');
+
+                dataTable.table = $dtable.DataTable({
+                    processing: true,
+                    serverSide: true,
+                    ajax: {
+                        url: $dtable.prop('data-url'),
+                        type: 'POST',
+                        dataSrc: ''
+                    },
+                    'columns': [
+                        { data: null },
+                        { data: 'NOABSEN' },
+                        { data: 'NAMA_LENGKAP' },
+                        { data: 'STATUS_KARYAWAN' },
+                        { data: 'STATUS_TEAM' },
+                        { data: 'ELNUSA_STATUS' },
+                        { data: 'JOBGRADE' },
+                        { data: 'JABATAN' },
+                        { data: 'PEND_TERAKHIR' },
+                        { data: 'INISIAL' },
+                        { data: 'KARYAWAN_ID' },
+                        { data: 'BAND' },
+                        { data: 'DIVISI' },
+                        { data: 'GOLONGAN_BISNIS'},
+                        { data: 'TANGGAL_MASUK'},
+                        { data: 'TGL_LAHIR'},
+                        { data: 'TEMPAT_LAHIR'},
+                        { data: 'JENIS_KELAMIN'},
+                        { data: 'AGAMA'},
+                        { data: 'ALAMAT'},
+                        { data: 'TELP_RUMAH'},
+                        { data: 'HP'},
+                        { data: 'STATUS'},
+                        { data: 'NAMA_SEKOLAH'},
+                        { data: 'JURUSAN'},
+                        { data: 'TANGGAL_BERHENTI'},
+                        { data: 'GOLONGAN'},
+                        { data: 'KETERANGAN'},
+                        { data: 'NOMOR_REKENING'},
+                        { data: 'NOMOR_REKENING_BNI'},
+                        { data: 'MASA_KERJA'},
+                        { data: 'KELOMPOK_MASA_KERJA'},
+                        { data: 'USIA'},
+                        { data: 'KELOMPOK_USIA'},
+                        { data: 'STATUS_KERJA'},
+                        { data: 'ALASAN_BERHENTI'},
+                        { data: 'ELNUSA_DEPARTMENT' },
+                        { data: 'TECHNICAL_TALENT' },
+                        { data: 'NOABSEN' }
+                    ],
+                    columnDefs: [{
+                        orderable: false,
+                        width: 100,
+                        targets: 'no-sort'
+                    },
+                    {
+                        'render': function (data, type, row) {
+                            var inner = "<a href='#' class='text-inverse p-r-10' data-toggle='tooltip' title='' data-original-title='Edit'><i class='icon-pencil7'></i></a>" +
+                                        "<a href='javascript:deleteItem();' class='text-inverse' title='' data-toggle='tooltip' data-original-title='Delete'><i class='icon-eraser2'></i></a>";
+                            return inner;
+                        },
+                        targets: -1
+                    },
+                    {
+                        targets: 0,
+                        checkboxes: {
+                            selectRow: true
+                        }
+                    }],
+                    scrollX: true,
+                    scrollY: '350px',
+                    scrollCollapse: true,
+                    fixedColumns: {
+                        leftColumns: 1,
+                        rightColumns: 1
+                    },
+                    buttons: [
+                    {
+                        className: 'btn bg-teal',
+                        text: '<i class="icon-plus2 mr-2"></i>Add',
+                        action: function (e, dt, node, config) {
+                            window.location.href = "@Url.Action("Create")";
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        className: 'btn btn-light',
+                        text: '<i class="icon-file-spreadsheet mr-2"></i>EXL',
+                        exportOptions: {
+                            columns: [0, ':visible', 'th:not(:last-child)'],
+                            rows: { selected: true }
+                        }
+                    },
+                    {
+                        extend: 'colvis',
+                        text: '<i class="icon-grid7"></i>',
+                        className: 'btn bg-blue btn-icon dropdown-toggle',
+                        columns: ':not(.no-sort)',
+                        collectionLayout: ['four-column', ':not(.no-sort)'],
+                        postfixButtons: ['colvisRestore']
+                    }],
+                    select: {
+                        style: 'multi'
+                    },
+                    order: [[1, 'asc']],
+                    'pagingType': 'full_numbers',
+                    language: {
+                        search: '<span>Filter:</span> _INPUT_',
+                        searchPlaceholder: 'Type to filter...',
+                        lengthMenu: '<span>Show:</span> _MENU_',
+                        paginate: { 'first': 'First', 'last': 'Last', 'next': $('html').attr('dir') == 'rtl' ? '&larr;' : '&rarr;', 'previous': $('html').attr('dir') == 'rtl' ? '&rarr;' : '&larr;' }
+                    }
+                });
+            },
+            getData: function () {
+                //if (dataTable.table != null)
+                    dataTable.initializeDataTable();
+                //else
+                //    dataTable.table.ajax.reload();
+            }
+        }
+
+        $(document).ready(function () {
+            dataTable.getData();
+        })
+        @*var DatatableFixedColumns = function () {
+
+            // Basic Datatable examples
+            var _componentDatatableFixedColumns = function () {
+                if (!$().DataTable) {
+                    console.warn('Warning - datatables.min.js is not loaded.');
+                    return;
+                }
+
+                // Setting datatable defaults
+                $.extend($.fn.dataTable.defaults, {
+                    autoWidth: false,
+                    columnDefs: [{
+                        orderable: false,
+                        width: 100,
+                        targets: 'no-sort'
+                    }],
+                    dom: '<"datatable-header"fBl><"datatable-scroll-wrap"t><"datatable-footer"ip>',
+                    language: {
+                        search: '<span>Filter:</span> _INPUT_',
+                        searchPlaceholder: 'Type to filter...',
+                        lengthMenu: '<span>Show:</span> _MENU_',
+                        paginate: { 'first': 'First', 'last': 'Last', 'next': $('html').attr('dir') == 'rtl' ? '&larr;' : '&rarr;', 'previous': $('html').attr('dir') == 'rtl' ? '&rarr;' : '&larr;' }
+                    }
+                });
+
+                $('.dataTables-export').DataTable({
+                    columnDefs: [{
+                        orderable: false,
+                        width: 100,
+                        targets: 'no-sort'
+                    },
+                    {
+                        targets: 0,
+                        checkboxes: {
+                            selectRow: true
+                        }
+                    }],
+                    scrollX: true,
+                    scrollY: '350px',
+                    scrollCollapse: true,
+                    fixedColumns: {
+                        leftColumns: 1,
+                        rightColumns: 1
+                    },
+                    buttons: [
+                    {
+                        className: 'btn bg-teal',
+                        text: '<i class="icon-plus2 mr-2"></i>Add',
+                        action: function(e, dt, node, config) {
+                            window.location.href = "@Url.Action("Create")";
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        className: 'btn btn-light',
+                        text: '<i class="icon-file-spreadsheet mr-2"></i>EXL',
+                        exportOptions: {
+                            columns: [0, ':visible', 'th:not(:last-child)'],
+                            rows: { selected: true }
+                        }
+                    },
+                    {
+                        extend: 'colvis',
+                        text: '<i class="icon-grid7"></i>',
+                        className: 'btn bg-blue btn-icon dropdown-toggle',
+                        columns: ':not(.no-sort)',
+                        collectionLayout: ['four-column', ':not(.no-sort)'],
+                        postfixButtons: ['colvisRestore']
+                    }],
+                    select: {
+                        style: 'multi'
+                    },
+                    order: [[1, 'asc']]
+                });
+            };
+
+            //
+            // Return objects assigned to module
+            //
+
+            return {
+                init: function () {
+                    _componentDatatableFixedColumns();
+                    //_componentSelect2();
+                }
+            }
+        }();
+
+
+        // Initialize module
+        // ------------------------------
+
+        document.addEventListener('DOMContentLoaded', function () {
+            DatatableFixedColumns.init();
+        });*@
+    </script>
+}
