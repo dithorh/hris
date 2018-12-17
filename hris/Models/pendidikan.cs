@@ -9,10 +9,32 @@ namespace hris.Models
     [Table("pendidikan")]
     public partial class pendidikan
     {
-        public int id { get; set; }
+        [Key]
+        public int pendidikan_id { get; set; }
 
-        [Column("pendidikan")]
-        [StringLength(255)]
-        public string pendidikan1 { get; set; }
+        public int? karyawan_id { get; set; }
+
+        public int? sekolah_id { get; set; }
+
+        public int? jurusan_id { get; set; }
+
+        [StringLength(20)]
+        public string jenjang { get; set; }
+
+        public int? tahun_masuk { get; set; }
+
+        public int? tahun_lulus { get; set; }
+
+        public float? ipk { get; set; }
+
+        public DateTime? date_created { get; set; }
+
+        public DateTime? date_modfied { get; set; }
+
+        public virtual karyawan karyawan { get; set; }
+
+        public virtual ref_jurusan ref_jurusan { get; set; }
+
+        public virtual ref_sekolah ref_sekolah { get; set; }
     }
 }

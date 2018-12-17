@@ -9,14 +9,10 @@ namespace hris.Areas.Employee.Controllers
 {
     public class HomeController : Controller
     {
-        private EmployeeContext db = new EmployeeContext();
-
         // GET: Employee/Home
         public ActionResult Index()
         {
-            var karyawan = db.karyawan.SingleOrDefault();
-
-            return View(karyawan);
+            return View();
         }
     }
 }

@@ -32,6 +32,14 @@
     @Scripts.Render("~/Scripts/plugins/ui/perfect_scrollbar.min.js")
     @Scripts.Render("~/Scripts/plugins/pickers/pickadate/picker.js")
     @Scripts.Render("~/Scripts/plugins/pickers/pickadate/picker.date.js")
+    @Scripts.Render("~/Scripts/plugins/forms/validation/validate.min.js")
+    @Scripts.Render("~/Scripts/plugins/forms/styling/uniform.min.js")
+    @Scripts.Render("~/Scripts/plugins/forms/styling/switch.min.js")
+    @Scripts.Render("~/Scripts/plugins/notifications/sweet_alert.min.js")
+    @Scripts.Render("~/Scripts/plugins/notifications/noty.min.js")
+
+    @Scripts.Render("~/Scripts/plugins/forms/form_validation.js")
+    @Scripts.Render("~/Scripts/plugins/forms/form_checkboxes_radios.js")
 
     @Scripts.Render("~/Scripts/app.js")
     <!-- /theme JS files -->
@@ -67,12 +75,8 @@
                         <span>Administrator</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a href="#" class="dropdown-item"><i class="icon-user-plus"></i> My profile</a>
-                        <a href="#" class="dropdown-item"><i class="icon-coins"></i> My balance</a>
-                        <a href="#" class="dropdown-item"><i class="icon-comment-discussion"></i> Messages <span class="badge badge-pill bg-blue ml-auto">58</span></a>
-                        <div class="dropdown-divider"></div>
                         <a href="#" class="dropdown-item"><i class="icon-cog5"></i> Account settings</a>
-                        <a href="@Url.Action("LogOut","Home")" class="dropdown-item"><i class="icon-switch2"></i> Logout</a>
+                        <a href="@Url.Action("LogOut","Home",new{ area = ""})" class="dropdown-item"><i class="icon-switch2"></i> Logout</a>
                     </div>
                 </li>
             </ul>
@@ -102,19 +106,27 @@
                     <ul class="nav nav-sidebar" data-nav-type="accordion">
                         <!-- Main -->
                         <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Dashboard</div> <i class="icon-menu" title="Dashboard"></i></li>
-                        <li class="nav-item nav-item-submenu nav-item-expanded">
+                        <li class="nav-item nav-item-submenu @(new[] {"User","Division","Position","CCTR","PosLvl","SubPosLvl"}.Contains(ViewContext.RouteData.Values["Controller"].ToString()) ? "nav-item-expanded nav-item-open" : "")">
                             <a href="#" class="nav-link"><i class="icon-database"></i> <span>Master</span></a>
+                            <ul class="nav nav-group-sub" data-submenu-title="Master">
+                                <li class="nav-item"><a href="@Url.Action("Index","User")" class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "User" ? "active" : "")">User</a></li>
+                                <li class="nav-item"><a href="@Url.Action("Index","Division")" class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Division" ? "active" : "")">Divisi</a></li>
+                                <li class="nav-item"><a href="@Url.Action("Index","Position")" class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Position" ? "active" : "")">Jabatan</a></li>
+                                <li class="nav-item"><a href="@Url.Action("Index","CCTR")" class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "CCTR" ? "active" : "")">Cost Center</a></li>
+                                <li class="nav-item"><a href="@Url.Action("Index","PosLvl")" class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "PosLvl" ? "active" : "")">Level Jabatan</a></li>
+                                <li class="nav-item"><a href="@Url.Action("Index","SubPosLvl")" class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "SubPosLvl" ? "active" : "")">Sub Level Jabatan</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item nav-item-submenu">
                             <a href="#" class="nav-link"><i class="icon-profile"></i> <span>Karyawan</span></a>
-                            <ul class="nav nav-group-sub" data-submenu-title="Starter kit">
+                            <ul class="nav nav-group-sub" data-submenu-title="Karyawan">
                                 <li class="nav-item"><a href="@Url.Action("List","Employee")" class="nav-link">Data Karyawan</a></li>
                             </ul>
                         </li>
                         <li class="nav-item nav-item-submenu">
-                            <a href="#" class="nav-link"><i class="icon-magazine"></i> <span>Dokumen</span></a>
-                            <ul class="nav nav-group-sub" data-submenu-title="Starter kit">
-                                <li class="nav-item"><a href="@Url.Action("List","Employee",new { area="Admin"})" class="nav-link">SIMP</a></li>
+                            <a href="#" class="nav-link"><i class="icon-airplane2"></i> <span>Dokumen</span></a>
+                            <ul class="nav nav-group-sub" data-submenu-title="Cuti">
+                                <li class="nav-item"><a href="@Url.Action("List","Employee")" class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "User" ? "active" : "")">SIMP</a></li>
                             </ul>
                         </li>
                         <!-- /main -->
@@ -153,6 +165,7 @@
     @RenderSection("Scripts", false/*required*/)
 
     <script type="text/javascript">
+
         var FixedSidebarCustomScroll = function () {
 
             // Perfect scrollbar
@@ -176,12 +189,124 @@
             }
         }();
 
+        var DatatableFixedColumns = function () {
+
+            // Basic Datatable examples
+            var _componentDatatableFixedColumns = function () {
+                if (!$().DataTable) {
+                    console.warn('Warning - datatables.min.js is not loaded.');
+                    return;
+                }
+
+                // Setting datatable defaults
+                $.extend($.fn.dataTable.defaults, {
+                    autoWidth: false,
+                    columnDefs: [{
+                        orderable: false,
+                        width: 100,
+                        targets: 'no-sort'
+                    }],
+                    dom: '<"datatable-header"fBl><"datatable-scroll-wrap"t><"datatable-footer"ip>',
+                    language: {
+                        search: '<span>Filter:</span> _INPUT_',
+                        searchPlaceholder: 'Type to filter...',
+                        lengthMenu: '<span>Show:</span> _MENU_',
+                        paginate: { 'first': 'First', 'last': 'Last', 'next': $('html').attr('dir') == 'rtl' ? '&larr;' : '&rarr;', 'previous': $('html').attr('dir') == 'rtl' ? '&rarr;' : '&larr;' }
+                    }
+                });
+
+                //Default
+                $('.dataTables').DataTable({
+                    buttons: [
+                    {
+                        className: 'btn bg-teal',
+                        text: '<i class="icon-plus2 mr-2"></i>Add',
+                        action: function(e, dt, node, config) {
+                            window.location.href = "@Url.Action("Create")";
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        className: 'btn btn-light',
+                        text: '<i class="icon-file-spreadsheet mr-2"></i>EXL',
+                        exportOptions: {
+                            columns: [0, ':visible', 'th:not(:last-child)'],
+                            rows: { selected: true }
+                        }
+                    },
+                    {
+                        extend: 'colvis',
+                        text: '<i class="icon-grid7"></i>',
+                        className: 'btn bg-blue btn-icon dropdown-toggle',
+                        columns: ':not(.no-sort)',
+                        collectionLayout: ['four-column', ':not(.no-sort)'],
+                        postfixButtons: ['colvisRestore']
+                    }]
+                });
+
+                //Modals
+                $('.dataTables-modals').DataTable({
+                    buttons: [
+                    {
+                        className: 'btn bg-teal',
+                        text: '<i class="icon-plus2 mr-2"></i>Add',
+                        action: function(e, dt, node, config) {
+                            $('#AddModal').modal('show')
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        className: 'btn btn-light',
+                        text: '<i class="icon-file-spreadsheet mr-2"></i>EXL',
+                        exportOptions: {
+                            columns: [0, ':visible', 'th:not(:last-child)'],
+                            rows: { selected: true }
+                        }
+                    },
+                    {
+                        extend: 'colvis',
+                        text: '<i class="icon-grid7"></i>',
+                        className: 'btn bg-blue btn-icon dropdown-toggle',
+                        columns: ':not(.no-sort)',
+                        collectionLayout: ['four-column', ':not(.no-sort)'],
+                        postfixButtons: ['colvisRestore']
+                    }]
+                });
+            };
+
+            // Select2 for length menu styling
+            var _componentSelect2 = function () {
+                if (!$().select2) {
+                    console.warn('Warning - select2.min.js is not loaded.');
+                    return;
+                }
+
+                // Initialize
+                $('.dataTables_length select').select2({
+                    minimumResultsForSearch: Infinity,
+                    dropdownAutoWidth: true,
+                    width: 'auto'
+                });
+            };
+
+            //
+            // Return objects assigned to module
+            //
+
+            return {
+                init: function () {
+                    _componentDatatableFixedColumns();
+                    //_componentSelect2();
+                }
+            }
+        }();
 
         // Initialize module
         // ------------------------------
 
         document.addEventListener('DOMContentLoaded', function () {
             FixedSidebarCustomScroll.init();
+            DatatableFixedColumns.init();
         });
 
         $(document).ready(function () {

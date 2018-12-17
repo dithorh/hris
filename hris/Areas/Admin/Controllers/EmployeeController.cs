@@ -15,8 +15,8 @@ namespace hris.Areas.Admin.Controllers
 {
     public class EmployeeController : Controller
     {
-        private EmployeeContext db = new EmployeeContext();
-        private EmployeeHelper helper = new EmployeeHelper();
+        private HRISContext db = new HRISContext();
+        private HRISHelper helper = new HRISHelper();
 
         public ActionResult List()
         {
@@ -33,7 +33,7 @@ namespace hris.Areas.Admin.Controllers
             var recordsFiltered = 0;
             start = start.HasValue ? start / 10 : 0;
 
-            var karyawan = new EmployeeHelper().GetPaginated(search, start.Value, length ?? 10, out totalRecords, out recordsFiltered);
+            var karyawan = new HRISHelper().GetPaginated(search, start.Value, length ?? 10, out totalRecords, out recordsFiltered);
 
             return JsonConvert.SerializeObject(karyawan);
         }
@@ -88,9 +88,9 @@ namespace hris.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var query = db.karyawan.SingleOrDefault(m => m.NOABSEN == id);
+            var query = db.karyawan.SingleOrDefault(m => m.karyawan_id == id);
             var employee = (from k in db.karyawan
-                            where k.NOABSEN == id
+                            where k.karyawan_id == id
                             select k).ToList();
 
             if (employee == null)
@@ -99,19 +99,18 @@ namespace hris.Areas.Admin.Controllers
             }
 
             ViewBag.Karyawan = employee;
-            ViewBag.Agama = helper.GetDropDownList("agama", "agama", query.AGAMA);
-            ViewBag.AlasanBerhenti = helper.GetDropDownList("alasan_berhenti", "alasan", query.ALASAN_BERHENTI);
-            ViewBag.CCTR = helper.GetDropDownList("cctr", "cctr");
-            ViewBag.Divisi = helper.GetDropDownList("divisi", "divisi", query.DIVISI);
-            ViewBag.Fungsi = helper.GetDropDownList("fungsi", "fungsi");
-            ViewBag.GolBisnis = helper.GetDropDownList("golongan_bisnis", "gol_bisnis", query.GOLONGAN_BISNIS);
-            ViewBag.GolJabatan = helper.GetDropDownList("golongan_jabatan", "jabatan", query.GOLONGAN);
-            ViewBag.LvlJabatan = helper.GetDropDownList("level_jabatan", "lvl", query.JABATAN);
-            ViewBag.LokasiKerja = helper.GetDropDownList("lokasi_kerja", "lokasi", query.LOKASI_KERJA);
-            ViewBag.MasaKerja = helper.GetDropDownList("masa_kerja", "masa_kerja", query.MASA_KERJA.ToString());
-            ViewBag.Pendidikan = helper.GetDropDownList("pendidikan", "pendidikan", query.PEND_TERAKHIR);
-            ViewBag.StatusPegawai = helper.GetDropDownList("status_pegawai", "status", query.STATUS_KARYAWAN);
-            ViewBag.SubLvl = helper.GetDropDownList("sublevel", "sublevel", query.SUB_BAND);
+            //ViewBag.AlasanBerhenti = helper.GetDropDownList("alasan_berhenti", "alasan", query.ALASAN_BERHENTI);
+            //ViewBag.CCTR = helper.GetDropDownList("cctr", "cctr");
+            //ViewBag.Divisi = helper.GetDropDownList("divisi", "divisi", query.DIVISI);
+            //ViewBag.Fungsi = helper.GetDropDownList("fungsi", "fungsi");
+            //ViewBag.GolBisnis = helper.GetDropDownList("golongan_bisnis", "gol_bisnis", query.GOLONGAN_BISNIS);
+            //ViewBag.GolJabatan = helper.GetDropDownList("golongan_jabatan", "jabatan", query.GOLONGAN);
+            //ViewBag.LvlJabatan = helper.GetDropDownList("level_jabatan", "lvl", query.JABATAN);
+            //ViewBag.LokasiKerja = helper.GetDropDownList("lokasi_kerja", "lokasi", query.LOKASI_KERJA);
+            //ViewBag.MasaKerja = helper.GetDropDownList("masa_kerja", "masa_kerja", query.MASA_KERJA.ToString());
+            //ViewBag.Pendidikan = helper.GetDropDownList("pendidikan", "pendidikan", query.PEND_TERAKHIR);
+            //ViewBag.StatusPegawai = helper.GetDropDownList("status_pegawai", "status", query.STATUS_KARYAWAN);
+            //ViewBag.SubLvl = helper.GetDropDownList("sublevel", "sublevel", query.SUB_BAND);
 
             return View();
         }
@@ -124,7 +123,7 @@ namespace hris.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var employeeToUpdate = db.karyawan.SingleOrDefault(m => m.NOABSEN == id);
+            var employeeToUpdate = db.karyawan.SingleOrDefault(m => m.karyawan_id == id);
             if (TryUpdateModel(employeeToUpdate))
             {
                 try

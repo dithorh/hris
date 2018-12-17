@@ -1,0 +1,144 @@
+﻿@model hris.Models.pengajuan_cuti
+
+@{
+    Layout = null;
+}
+
+<div class="modal-header bg-teal">
+    <h5 class="modal-title">Edit Data</h5>
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+</div>
+
+<form action="#" class="form-validate-jquery">
+    @Html.AntiForgeryToken()
+    <div class="modal-body">
+        <input id="edt_pengajuan_cuti_id" type="hidden" value="@(Model.pengajuan_cuti_id)" />
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-6">
+                    <label>Tanggal Cuti</label>
+                    <div class="input-group">
+                        <span class="input-group-prepend">
+                            <span class="input-group-text"><i class="icon-calendar22"></i></span>
+                        </span>
+                        <input type="text" class="form-control daterange-basic" value="@string.Format("{0:dd/MM/yyyy}", Model.tgl_mulai_cuti) - @string.Format("{0:dd/MM/yyyy}", Model.tgl_selesai_cuti)">
+                        <input id="edt_tgl_mulai_cuti" type="hidden" value="@(Model.tgl_mulai_cuti)">
+                        <input id="edt_tgl_selesai_cuti" type="hidden"value="@(Model.tgl_selesai_cuti)">
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <label>Jumlah Hari</label>
+                    <input id="edt_jml_hari" type="text" class="form-control" readonly value="@(Model.jml_hari)">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-6">
+                    <label>Jenis Cuti</label>
+                    <select id="edt_jenis_cuti" class="form-control form-control-sm select2">
+                        <option value="">Pilih</option>
+                        <option value="Pribadi" @(Model.jenis_cuti == "Pribadi" ? "selected" : "")>Pribadi</option>
+                        <option value="Izin" @(Model.jenis_cuti == "Izin" ? "selected" : "")>Izin</option>
+                        <option value="Sakit" @(Model.jenis_cuti == "Sakit" ? "selected" : "")>Sakit</option>
+                        <option value="Hamil" @(Model.jenis_cuti == "Hamil" ? "selected" : "")>Hamil</option>
+                        <option value="Nikah" @(Model.jenis_cuti == "Nikah" ? "selected" : "")>Nikah</option>
+                        <option value="Setengah Hari" @(Model.jenis_cuti == "Setengah Hari" ? "selected" : "")>Setengah Hari</option>
+                        <option value="Potong Gaji" @(Model.jenis_cuti == "Potong Gaji" ? "selected" : "")>Potong Gaji</option>
+                        <option value="Lainya" @(Model.jenis_cuti == "Lainya" ? "selected" : "")>Lainya</option>
+                    </select>
+                </div>
+
+                <div class="col-sm-6">
+                    <label>Alasan</label>
+                    <input id="edt_alasan" type="text" class="form-control" value="@(Model.alasan)">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button id="Edit" type="button" class="btn bg-primary">Save</button>
+    </div>
+</form>
+
+<script type="text/javascript">
+
+    $('.select2').select2();
+
+    $('.daterange-basic').daterangepicker({
+        applyClass: 'bg-slate-600',
+        cancelClass: 'btn-light',
+        autoApply: true,
+        autoUpdateInput: false,
+        locale: {
+            format: 'DD/MM/YYYY',
+            cancelLabel: 'Clear'
+        }
+    }, function (start, end, label) {
+        var one_day = 1000 * 60 * 60 * 24;
+        var dtstart = new Date(start);
+        var dtend = new Date(end);
+        var diffDays = Math.round(Math.abs((dtstart.getTime() - dtend.getTime()) / one_day));
+        $('#jml_hari').val(diffDays);
+    });
+
+    $('.daterange-basic').on('apply.daterangepicker', function (ev, picker) {
+        $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+        $('#tgl_mulai_cuti').val(picker.startDate.format('MM/DD/YYYY'));
+        $('#tgl_selesai_cuti').val(picker.endDate.format('MM/DD/YYYY'));
+    });
+
+    $('.daterange-basic').on('cancel.daterangepicker', function (ev, picker) {
+        $(this).val('');
+    });
+
+    $("#Edit").click(function (e) {
+        e.preventDefault();
+
+        var cuti = new Object();
+        cuti.pengajuan_cuti_id = $('#edt_pengajuan_cuti_id').val();
+        cuti.tgl_mulai_cuti = $('#edt_tgl_mulai_cuti').val();
+        cuti.tgl_selesai_cuti = $('#edt_tgl_selesai_cuti').val();
+        cuti.jml_hari = $('#edt_jml_hari').val();
+        cuti.jenis_cuti = $('#edt_jenis_cuti').val();
+        cuti.alasan = $('#edt_alasan').val();
+        var token = $('input[name=__RequestVerificationToken]').val();
+        console.log(cuti);
+        if (cuti.pengajuan_cuti_id != "") {
+            $.ajax({
+                url: '@Url.Action("Edit")',
+                type: 'POST',
+                data: { __RequestVerificationToken: token, pengajuan_Cuti: cuti },
+                success: function (data) {
+                    $('#EditModal').modal('hide');
+                    if (data == "0")
+                        new Noty({
+                            text: 'Data has been added successfuly.',
+                            type: 'success',
+                            callbacks: {
+                                afterClose: function () {
+                                    location.reload();
+                                }
+                            }
+                        }).show();
+                    else
+                        new Noty({
+                            text: 'Data has failed to be saved.',
+                            type: 'error'
+                        }).show();
+                },
+                error: function () {
+                    $('#AddModal').modal('hide');
+                    new Noty({
+                        text: 'Data has failed to be saved.',
+                        type: 'error'
+                    }).show();
+                }
+            });
+        }
+    });
+
+</script>
+
+

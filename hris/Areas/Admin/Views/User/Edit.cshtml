@@ -1,0 +1,82 @@
+﻿@model hris.Models.user_login
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_PartialLayout.cshtml";
+}
+
+<div class="modal-header bg-teal">
+    <h5 class="modal-title">Edit Data</h5>
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+</div>
+
+<form action="#" class="form-validate-jquery">
+    @Html.AntiForgeryToken()
+    <div class="modal-body">
+        <input id="edit_user_id" type="hidden" class="form-control" value="@(Model.user_id)" required>
+        <div class="form-group">
+            <label>Role</label>
+            <select class="form-control form-control-sm select2" id="edit_role" required>
+                <option value="">Pilih</option>
+                <option value="user" @(Model.role == "user" ? "selected" : "")>user</option>
+                <option value="superuser" @(Model.role == "superuser" ? "selected" : "")>superuser</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Status</label>
+            <div class="form-check form-check-switch form-check-switch-left">
+                <label class="form-check-label d-flex align-items-center">
+                    <input id="edit_status" type="checkbox" data-on-color="success" data-off-color="danger" data-on-text="Enable" data-off-text="Disable" class="form-check-input-switch" @(Model.status == true ? "checked" : "")>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button id="Edit" type="button" class="btn bg-primary">Save</button>
+    </div>
+</form>
+
+<script type="text/javascript">
+
+    $("#Edit").click(function (e) {
+        e.preventDefault();
+
+        var user = new Object();
+        user.user_id = $('#edit_user_id').val();
+        user.role = $('#edit_role').val();
+        user.status = $('#edit_status').bootstrapSwitch('state')
+        var token = $('input[name=__RequestVerificationToken]').val();
+
+        if (user.user_id != "") {
+            $.ajax({
+                url: '@Url.Action("Edit")',
+                type: 'POST',
+                data: { __RequestVerificationToken: token, user_Login: user },
+                success: function (data) {
+                    $('#EditModal').modal('hide');
+                    if (data == "0")
+                        new Noty({
+                            text: 'Data has been added successfuly.',
+                            type: 'success',
+                            callbacks: {
+                                afterClose: function () {
+                                    location.reload();
+                                }
+                            }
+                        }).show();
+                    else
+                        new Noty({
+                            text: 'Data has failed to be saved.',
+                            type: 'error'
+                        }).show();
+                },
+                error: function () {
+                    $('#AddModal').modal('hide');
+                    new Noty({
+                        text: 'Data has failed to be saved.',
+                        type: 'error'
+                    }).show();
+                }
+            });
+        }
+    });
+</script>

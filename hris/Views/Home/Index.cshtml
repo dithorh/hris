@@ -11,7 +11,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Limitless - Responsive Web Application Kit by Eugene Kopyov</title>
+    <title>HRIS</title>
     <!-- Global stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
     @Styles.Render("~/Content/icons/icomoon/styles.css")
@@ -20,24 +20,23 @@
     @Styles.Render("~/Content/layout.min.css")
     @Styles.Render("~/Content/components.min.css")
     @Styles.Render("~/Content/colors.min.css")
-    @Styles.Render("~/Content/plugins/sweetalert2/sweetalert2.min.css")
     <!-- /global stylesheets -->
 
 </head>
 <body>
     <!-- Page content -->
-    <div class="page-content">
+    <div class="page-content bg-slate-700">
         <!-- Main content -->
         <div class="content-wrapper">
             <!-- Content area -->
             <div class="content d-flex justify-content-center align-items-center">
                 <!-- Login form -->
-                <form class="login-form" href="@Url.Action("Login")" method="post">
+                <form class="login-form form-validate" href="@Url.Action("Login")" method="post">
                     @Html.AntiForgeryToken()
                     <div class="card mb-0">
                         <div class="card-body">
                             <div class="text-center mb-3">
-                                <i class="icon-reading icon-2x text-slate-300 border-slate-300 border-3 rounded-round p-3 mb-3 mt-1"></i>
+                                <i class="icon-city icon-2x text-slate-300 border-slate-300 border-3 rounded-round p-3 mb-3 mt-1"></i>
                                 <h5 class="mb-0">HRIS</h5>
                                 @*<span class="d-block text-muted">Enter your credentials below</span>*@
                             </div>
@@ -73,16 +72,22 @@
 </html>
 
 @Scripts.Render("~/Scripts/jquery-3.3.1.min.js")
-@Scripts.Render("~/Scripts/plugins/alerts/sweetalert2.all.min.js")
+@Scripts.Render("~/Scripts/plugins/forms/validation/validate.min.js")
+@Scripts.Render("~/Scripts/plugins/forms/styling/uniform.min.js")
+@Scripts.Render("~/Scripts/plugins/forms/login_validation.js")
+@Scripts.Render("~/Scripts/plugins/notifications/sweet_alert.min.js")
 
 @if (!string.IsNullOrEmpty(ViewBag.ErrorMsg))
 {
     <script type="text/javascript">
-        Swal({
+        swal({
             type: 'error',
             title: 'Oops...',
             text: '@ViewBag.ErrorMsg',
-            timer: 1000
+            timer: 1500,
+            buttonsStyling: false,
+            confirmButtonClass: 'btn btn-primary',
+            cancelButtonClass: 'btn btn-light'
         })
     </script>
 }

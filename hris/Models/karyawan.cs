@@ -9,161 +9,127 @@ namespace hris.Models
     [Table("karyawan")]
     public partial class karyawan
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public karyawan()
+        {
+            hist_karyawan = new HashSet<hist_karyawan>();
+            keluargas = new HashSet<keluarga>();
+            pendidikans = new HashSet<pendidikan>();
+            pengajuan_cuti = new HashSet<pengajuan_cuti>();
+        }
+
         [Key]
-        [Column(Order = 0)]
-        public int NOABSEN { get; set; }
+        public int karyawan_id { get; set; }
 
-        [StringLength(255)]
-        public string NAMA_LENGKAP { get; set; }
+        [StringLength(20)]
+        public string user_id { get; set; }
 
-        [StringLength(255)]
-        public string STATUS_KARYAWAN { get; set; }
+        [StringLength(15)]
+        public string no_karyawan { get; set; }
 
-        [StringLength(255)]
-        public string STATUS_TEAM { get; set; }
+        [StringLength(20)]
+        public string nama_karyawan { get; set; }
 
-        [StringLength(255)]
-        public string ELNUSA_STATUS { get; set; }
+        [StringLength(3)]
+        public string inisial { get; set; }
 
-        [StringLength(255)]
-        public string JOBGRADE { get; set; }
+        [StringLength(20)]
+        public string email { get; set; }
 
-        [StringLength(255)]
-        public string JABATAN { get; set; }
+        [StringLength(15)]
+        public string ktp { get; set; }
 
-        [StringLength(255)]
-        public string ELNUSA_JOBGRADE { get; set; }
+        [StringLength(15)]
+        public string kartu_keluarga { get; set; }
 
-        [StringLength(255)]
-        public string ELNUSA_EDUCATION { get; set; }
+        [StringLength(20)]
+        public string npwp { get; set; }
 
-        [StringLength(255)]
-        public string PEND_TERAKHIR { get; set; }
+        [StringLength(15)]
+        public string bpjs_kesehatan { get; set; }
 
-        [StringLength(255)]
-        public string INISIAL { get; set; }
+        [StringLength(15)]
+        public string bpjs_ketanagakerjaan { get; set; }
 
-        [StringLength(255)]
-        public string KARYAWAN_ID { get; set; }
+        [StringLength(10)]
+        public string jenis_kelamin { get; set; }
 
-        [StringLength(255)]
-        public string BAND { get; set; }
-
-        [StringLength(255)]
-        public string SUB_BAND { get; set; }
-
-        [StringLength(255)]
-        public string DIVISI { get; set; }
-
-        [StringLength(255)]
-        public string GOLONGAN_BISNIS { get; set; }
+        [StringLength(15)]
+        public string tempat_lahir { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? TANGGAL_MASUK { get; set; }
+        public DateTime? tgl_lahir { get; set; }
+
+        public double? usia { get; set; }
+
+        [StringLength(10)]
+        public string agama { get; set; }
+
+        public string alamat { get; set; }
+
+        [StringLength(15)]
+        public string telp_rumah { get; set; }
+
+        [StringLength(15)]
+        public string hp { get; set; }
+
+        [StringLength(15)]
+        public string status_perkawinan { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? TGL_LAHIR { get; set; }
-
-        [StringLength(255)]
-        public string TEMPAT_LAHIR { get; set; }
-
-        [StringLength(255)]
-        public string JENIS_KELAMIN { get; set; }
-
-        [StringLength(255)]
-        public string AGAMA { get; set; }
-
-        [StringLength(255)]
-        public string ALAMAT { get; set; }
-
-        [StringLength(255)]
-        public string TELP_RUMAH { get; set; }
-
-        [StringLength(255)]
-        public string HP { get; set; }
-
-        [StringLength(255)]
-        public string STATUS { get; set; }
-
-        [StringLength(255)]
-        public string NAMA_SEKOLAH { get; set; }
-
-        [StringLength(255)]
-        public string JURUSAN { get; set; }
+        public DateTime? tgl_masuk { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? TANGGAL_BERHENTI { get; set; }
+        public DateTime? tgl_berhenti { get; set; }
 
-        [StringLength(255)]
-        public string GOLONGAN { get; set; }
+        [StringLength(20)]
+        public string no_rek { get; set; }
 
-        [StringLength(255)]
-        public string KETERANGAN { get; set; }
+        [StringLength(20)]
+        public string no_rek_bni { get; set; }
 
-        [StringLength(255)]
-        public string NOMOR_REKENING { get; set; }
+        public double? masa_kerja { get; set; }
 
-        [StringLength(255)]
-        public string NOMOR_REKENING_BNI { get; set; }
+        [StringLength(20)]
+        public string kelompok_masa_kerja { get; set; }
 
-        [StringLength(255)]
-        public string FOTO { get; set; }
+        [StringLength(20)]
+        public string kelompok_usia { get; set; }
 
-        public double? MASA_KERJA { get; set; }
+        [StringLength(20)]
+        public string status_kerja { get; set; }
 
-        [StringLength(255)]
-        public string KELOMPOK_MASA_KERJA { get; set; }
+        public bool asuransi_kesehatan { get; set; }
 
-        [StringLength(255)]
-        public string USIA { get; set; }
+        public bool asuransi_jiwa { get; set; }
 
-        [StringLength(255)]
-        public string KELOMPOK_USIA { get; set; }
+        public bool pesangon { get; set; }
 
-        [StringLength(255)]
-        public string LOKASI_KERJA { get; set; }
+        [Column(TypeName = "text")]
+        public string keterangan { get; set; }
 
-        [StringLength(255)]
-        public string STATUS_KERJA { get; set; }
+        public DateTime? date_created { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
-        public bool ABSEN { get; set; }
+        public DateTime? date_modified { get; set; }
 
-        [Key]
-        [Column(Order = 2)]
-        public bool ASURANSI_KESEHATAN { get; set; }
+        [StringLength(20)]
+        public string created_by { get; set; }
 
-        [Key]
-        [Column(Order = 3)]
-        public bool ASURANSI_JIWA { get; set; }
+        [StringLength(20)]
+        public string updated_by { get; set; }
 
-        [Key]
-        [Column(Order = 4)]
-        public bool PESANGON { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<hist_karyawan> hist_karyawan { get; set; }
 
-        [StringLength(255)]
-        public string ALASAN_BERHENTI { get; set; }
+        public virtual user_login user_login { get; set; }
 
-        [StringLength(255)]
-        public string ELNUSA_DEPARTMENT { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<keluarga> keluargas { get; set; }
 
-        [StringLength(255)]
-        public string TECHNICAL_TALENT { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<pendidikan> pendidikans { get; set; }
 
-        [StringLength(255)]
-        public string KTP { get; set; }
-
-        [StringLength(255)]
-        public string KARTU_KELUARGA { get; set; }
-
-        [StringLength(255)]
-        public string NPWP { get; set; }
-
-        [StringLength(255)]
-        public string BPJS_KESEHATAN { get; set; }
-
-        [StringLength(50)]
-        public string BPJS_KETANAGAKERJAAN { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<pengajuan_cuti> pengajuan_cuti { get; set; }
     }
 }

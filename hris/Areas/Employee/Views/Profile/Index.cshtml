@@ -1,0 +1,84 @@
+﻿@model hris.Models.karyawan
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+        <div class="page-title d-flex">
+            <h4><span class="font-weight-semibold">Profile</span></h4>
+            <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+    </div>
+
+    <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+        <div class="d-flex">
+            <div class="breadcrumb">
+                <a href="#" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+                <a href="#" class="breadcrumb-item">Profile</a>
+            </div>
+
+            <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-10">
+            <div class="tab-content">
+                <div class="tab-pane fade active show" id="Personal">
+                    @Html.Partial("Personal")
+                </div>
+                <div class="tab-pane fade" id="Employee">
+                </div>
+                <div class="tab-pane fade" id="Bank">
+                </div>
+                <div class="tab-pane fade" id="Family">
+                </div>
+                <div class="tab-pane fade" id="Education">
+                </div>
+                <div class="tab-pane fade" id="Job">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            @*<div class="card">*@
+                @*<div class="card-body">*@
+                    <ul id="tabContainer" class="nav nav-pills nav-pills-bordered nav-pills-toolbar flex-column position-fixed">
+                        <li class="nav-item"><a href="#Personal" class="nav-link active show" data-toggle="tab"><i class="icon-magazine mr-2"></i>Pribadi</a></li>
+                        <li class="nav-item"><a href="#Employee" class="nav-link" data-toggle="tab"><i class="icon-briefcase mr-2"></i>Karyawan</a></li>
+                        <li class="nav-item"><a href="#Bank" class="nav-link" data-toggle="tab"><i class="icon-wallet mr-2"></i>Bank</a></li>
+                        <li class="nav-item"><a href="#Family" class="nav-link" data-toggle="tab"><i class="icon-users4 mr-2"></i>Keluarga</a></li>
+                        <li class="nav-item"><a href="#Education" class="nav-link" data-toggle="tab"><i class="icon-graduation mr-2"></i>Pendidikan</a></li>
+                        <li class="nav-item"><a href="#Job" class="nav-link" data-toggle="tab"><i class="icon-magazine mr-2"></i>Pengalaman Kerja</a></li>
+                    </ul>
+                @*</div>*@
+            @*</div>*@
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        $('#tabContainer a').click(function (e) {
+            e.preventDefault()
+            var tabID = $(this).attr("href").substr(1);
+            $(".tab-pane").each(function () {
+                $(this).empty();
+            });
+
+            $.ajax({
+                url: "/@ViewContext.RouteData.Values["controller"]/" + tabID,
+                cache: false,
+                type: "get",
+                dataType: "html",
+                success: function (result) {
+                    $("#" + tabID).html(result);
+                }
+
+            })
+            $(this).tab('show');
+        });
+    </script>
+}

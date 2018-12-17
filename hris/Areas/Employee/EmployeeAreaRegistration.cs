@@ -18,7 +18,7 @@ namespace hris.Areas.Employee
                 "Employee_default",
                 "Employee/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional },
-                new[] { "hris.Areas.Admin.Controllers" }
+                new[] { "hris.Areas.Employee.Controllers" }
             );
         }
     }

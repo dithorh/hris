@@ -1,0 +1,329 @@
+﻿@model IEnumerable<hris.Models.pengajuan_cuti>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+        <div class="page-title d-flex">
+            <h4><span class="font-weight-semibold">List Pengajuan Cuti</span></h4>
+            <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+    </div>
+
+    <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+        <div class="d-flex">
+            <div class="breadcrumb">
+                <a href="#" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+                <span class="breadcrumb-item active">List Pengajuan Cuti</span>
+            </div>
+
+            <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="card border-dark">
+        <div class="card-header header-elements-inline bg-slate-700">
+            <div class="card-title"></div>
+            <div class="header-elements">
+                <div class="list-icons">
+                    <a class="list-icons-item" data-action="collapse"></a>
+                    <a class="list-icons-item" data-action="reload"></a>
+                    <a class="list-icons-item" data-action="remove"></a>
+                </div>
+            </div>
+        </div>
+        <table class="table dataTables-modals table-bordered">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Tanggal Cuti</th>
+                    <th>Jumlah Hari</th>
+                    <th>Jenis Cuti</th>
+                    <th>Alasan</th>
+                    <th>Tanggal Pengajuan</th>
+                    <th>Approval Atasan</th>
+                    <th>Approval HRD</th>
+                    <th class="no-sort">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    if (Model != null && Model.Count() > 0)
+                    {
+                        int i = 0;
+
+                        foreach (var item in Model)
+                        {
+                            i++;
+                            <tr>
+                                <td align="center">
+                                    @i
+                                </td>
+                                <td align="center">
+                                    @string.Format("{0:dd/MM/yyyy}", item.tgl_mulai_cuti) s/d @string.Format("{0:dd/MM/yyyy}", item.tgl_selesai_cuti)
+                                </td>
+                                <td align="center">@item.jml_hari</td>
+                                <td>@item.jenis_cuti</td>
+                                <td>@item.alasan</td>
+                                <td>@string.Format("{0:MM/dd/yyyy}", item.tgl_pengajuan)</td>
+                                <td align="center">
+                                    @if (item.status_approval1 == "Pending")
+                                    {
+                                        <span class="badge badge-warning">Pending</span>
+                                    }
+                                    else if (item.status_approval1 == "Approved")
+                                    {
+                                        <span class="badge badge-success">Approved</span>
+                                    }
+                                    else if (item.status_approval1 == "Rejected")
+                                    {
+                                        <span class="badge badge-danger">Rejected</span>
+                                    }
+                                </td>
+                                <td align="center">
+                                    @if (item.status_approval2 == "Pending")
+                                    {
+                                        <span class="badge badge-warning">Pending</span>
+                                    }
+                                    else if (item.status_approval2 == "Approved")
+                                    {
+                                        <span class="badge badge-success">Approved</span>
+                                    }
+                                    else if (item.status_approval2 == "Rejected")
+                                    {
+                                        <span class="badge badge-danger">Rejected</span>
+                                    }
+                                </td>
+                                <td align="center">
+                                    <a href="javascript:createModal('@Url.Action("Edit", new { id = item.pengajuan_cuti_id })')" class="text-inverse p-r-10" data-toggle="tooltip" title="" data-original-title="Edit"><i class="icon-pencil7"></i></a>
+                                    <a href="javascript:deleteItem(@item.pengajuan_cuti_id);" class="text-inverse" title="" data-toggle="tooltip" data-original-title="Delete"><i class="icon-eraser2"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!--Modal-->
+<div id="AddModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content border-teal">
+            <div class="modal-header bg-teal">
+                <h5 class="modal-title">Tambah Data</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <form action="#" class="form-validate-jquery">
+                @Html.AntiForgeryToken()
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Tanggal Cuti</label>
+                                <div class="input-group">
+                                    <span class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-calendar22"></i></span>
+                                    </span>
+                                    <input type="text" class="form-control daterange-basic">
+                                    <input id="tgl_mulai_cuti" type="hidden">
+                                    <input id="tgl_selesai_cuti" type="hidden">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label>Jumlah Hari</label>
+                                <input id="jml_hari" type="text" class="form-control" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Jenis Cuti</label>
+                                <select id="jenis_cuti" class="form-control form-control-sm select2">
+                                    <option value="">Pilih</option>
+                                    <option value="Pribadi">Pribadi</option>
+                                    <option value="Izin">Izin</option>
+                                    <option value="Sakit">Sakit</option>
+                                    <option value="Hamil">Hamil</option>
+                                    <option value="Nikah">Nikah</option>
+                                    <option value="Setengah Hari">Setengah Hari</option>
+                                    <option value="Potong Gaji">Potong Gaji</option>
+                                    <option value="Lainya">Lainya</option>
+                                </select>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label>Alasan</label>
+                                <input id="alasan" type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="Add" type="submit" class="btn bg-primary ">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="EditModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content border-teal" id="editContent">
+        </div>
+    </div>
+</div>
+<!-- /End Modal-->
+
+@section Scripts{
+    <script type="text/javascript">
+        Noty.overrideDefaults({
+            theme: 'limitless',
+            layout: 'topRight',
+            type: 'alert',
+            timeout: 1500
+        });
+
+        function createModal(url) {
+            $('#editContent').load(url);
+            $('#EditModal').modal('show');
+        }
+
+        $('#AddModal').on('hidden.bs.modal', function (e) {
+            $("#jenis_cuti").select2('val', '');
+            $(this).find('form')[0].reset();
+        });
+
+        $('.daterange-basic').daterangepicker({
+            applyClass: 'bg-slate-600',
+            cancelClass: 'btn-light',
+            autoApply: true,
+            autoUpdateInput: false,
+            locale: {
+                format: 'DD/MM/YYYY',
+                cancelLabel: 'Clear'
+            }
+        }, function (start, end, label) {
+            var one_day = 1000 * 60 * 60 * 24;
+            var dtstart = new Date(start);
+            var dtend = new Date(end);
+            var diffDays = Math.round(Math.abs((dtstart.getTime() - dtend.getTime()) / one_day));
+            $('#jml_hari').val(diffDays);
+        });
+
+        $('.daterange-basic').on('apply.daterangepicker', function (ev, picker) {
+            $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+            $('#tgl_mulai_cuti').val(picker.startDate.format('MM/DD/YYYY'));
+            $('#tgl_selesai_cuti').val(picker.endDate.format('MM/DD/YYYY'));
+        });
+
+        $('.daterange-basic').on('cancel.daterangepicker', function (ev, picker) {
+            $(this).val('');
+        });
+
+        //Insert
+        $("#Add").click(function (e) {
+            e.preventDefault();
+
+            var cuti = new Object();
+            cuti.tgl_mulai_cuti = $('#tgl_mulai_cuti').val();
+            cuti.tgl_selesai_cuti = $('#tgl_selesai_cuti').val();
+            cuti.jml_hari = $('#jml_hari').val();
+            cuti.jenis_cuti = $('#jenis_cuti').val();
+            cuti.alasan = $('#alasan').val();
+            var token = $('input[name=__RequestVerificationToken]').val();
+            console.log(cuti);
+            if (cuti.tgl_mulai_cuti != "" && cuti.tgl_selesai_cuti != "") {
+                $.ajax({
+                    url: '@Url.Action("Add")',
+                    type: 'POST',
+                    data: { __RequestVerificationToken: token, pengajuan_Cuti: cuti },
+                    success: function (data) {
+                        $('#AddModal').modal('hide');
+                        if (data == "0")
+                            new Noty({
+                                text: 'Data has been added successfuly.',
+                                type: 'success',
+                                callbacks: {
+                                    afterClose: function () {
+                                        location.reload();
+                                    }
+                                }
+                            }).show();
+                        else
+                            new Noty({
+                                text: 'Data has failed to be saved.',
+                                type: 'error'
+                            }).show();
+                    },
+                    error: function () {
+                        $('#AddModal').modal('hide');
+                        new Noty({
+                            text: 'Data has failed to be saved.',
+                            type: 'error'
+                        }).show();
+                    }
+                });
+            }
+        });
+
+        //Delete
+        function deleteItem(id) {
+            var token = $('input[name=__RequestVerificationToken]').val();
+
+            swal({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-danger',
+                buttonsStyling: false
+            }).then((isDelete) => {
+                if (isDelete.value) {
+                    $.ajax({
+                        url: '@Url.Action("Delete")',
+                        type: 'POST',
+                        data: { __RequestVerificationToken: token, id: JSON.stringify(id) },
+                        success: function (data) {
+                            if (data == "0")
+                                swal({
+                                    type: 'success',
+                                    title: 'Deleted!',
+                                    text: 'Data has successfully been deleted.',
+                                    timer: 1500
+                                }).then(function () {
+                                    location.reload();
+                                });
+                            else
+                                swal(
+                                    'Deleted!',
+                                    'Datae has failed to be deleted.',
+                                    'error'
+                                );
+                        },
+                        error: function () {
+                            swal(
+                                'Deleted!',
+                                'Data has failed to be deleted.',
+                                'error'
+                            );
+                        }
+                    });
+                } else {
+                    swal('Data is safe!');
+                }
+            });
+        }
+    </script>
+}

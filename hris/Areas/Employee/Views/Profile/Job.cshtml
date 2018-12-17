@@ -1,0 +1,80 @@
+﻿@model IEnumerable<hris.Models.pengalaman_kerja>
+
+<div class="card border-dark">
+    <div class="card-header bg-slate header-elements-inline bg-slate-700">
+        <h5 class="card-title"><i class="icon-magazine mr-2"></i>Data Pengalaman Kerja</h5>
+        <div class="header-elements">
+            <div class="list-icons">
+                <a class="list-icons-item" data-action="collapse"></a>
+                <a class="list-icons-item" data-action="reload"></a>
+                <a class="list-icons-item" data-action="remove"></a>
+            </div>
+        </div>
+    </div>
+    <table class="table dataTables table-bordered">
+        <thead>
+            <tr>
+                <th>Perusahaan</th>
+                <th>Bidang Bisnis</th>
+                <th>Telp</th>
+                <th>Alamat</th>
+                <th class="no-sort">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.nama_perusahaan)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.bidang_bisnis)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.telp)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.alamat)
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Edit", new { id = item.pengalaman_kerja_id })" class="text-inverse p-r-10" data-toggle="tooltip" title="" data-original-title="Edit"><i class="icon-pencil7"></i></a>
+                            <a href="javascript:deleteItem(@item.pengalaman_kerja_id);" class="text-inverse" title="" data-toggle="tooltip" data-original-title="Delete"><i class="icon-eraser2"></i></a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    $('.dataTables').DataTable({
+        buttons: [
+        {
+            className: 'btn bg-teal',
+            text: '<i class="icon-plus2 mr-2"></i>Add',
+            action: function(e, dt, node, config) {
+                window.location.href = "@Url.Action("Create")";
+            }
+        },
+        {
+            extend: 'excelHtml5',
+            className: 'btn btn-light',
+            text: '<i class="icon-file-spreadsheet mr-2"></i>EXL',
+            exportOptions: {
+                columns: [0, ':visible', 'th:not(:last-child)'],
+                rows: { selected: true }
+            }
+        },
+        {
+            extend: 'colvis',
+            text: '<i class="icon-grid7"></i>',
+            className: 'btn bg-blue btn-icon dropdown-toggle',
+            columns: ':not(.no-sort)',
+            collectionLayout: ['four-column', ':not(.no-sort)'],
+            postfixButtons: ['colvisRestore']
+        }]
+    });
+</script>

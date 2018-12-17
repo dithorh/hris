@@ -1,0 +1,220 @@
+﻿@model IEnumerable<hris.Models.ref_divisi>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+        <div class="page-title d-flex">
+            <h4><span class="font-weight-semibold">List Divisi</span></h4>
+            <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+    </div>
+
+    <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+        <div class="d-flex">
+            <div class="breadcrumb">
+                <a href="#" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+                <a href="@Url.Action("Index")" class="breadcrumb-item">Master</a>
+                <span class="breadcrumb-item active">Divisi</span>
+            </div>
+
+            <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="card border-dark">
+        <div class="card-header header-elements-inline bg-slate-600">
+            <div class="card-title"></div>
+            <div class="header-elements">
+                <div class="list-icons">
+                    <a class="list-icons-item" data-action="collapse"></a>
+                    <a class="list-icons-item" data-action="reload"></a>
+                    <a class="list-icons-item" data-action="remove"></a>
+                </div>
+            </div>
+        </div>
+        <table class="table dataTables-modals table-bordered">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Divisi</th>
+                    <th class="no-sort">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    if (Model != null)
+                    {
+                        int i = 0;
+
+                        foreach (var item in Model)
+                        {
+                            i++;
+                            <tr>
+                                <td>
+                                    @i
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.nama_divisi)
+                                </td>
+                                <td>
+                                    <a href="javascript:createModal('@Url.Action("Edit", new { id = item.divisi_id })')" class="text-inverse p-r-10" data-toggle="tooltip" title="" data-original-title="Edit"><i class="icon-pencil7"></i></a>
+                                    <a href="javascript:deleteItem(@item.divisi_id);" class="text-inverse" title="" data-toggle="tooltip" data-original-title="Delete"><i class="icon-eraser2"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!--Modal-->
+<div id="AddModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content border-teal">
+            <div class="modal-header bg-teal">
+                <h5 class="modal-title">Tambah Data</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <form action="#" class="form-validate-jquery">
+                @Html.AntiForgeryToken()
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Nama Divisi</label>
+                        <input id="nama_divisi" type="text" class="form-control " required>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="Add" type="submit" class="btn bg-primary ">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="EditModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content border-teal" id="editContent">
+        </div>
+    </div>
+</div>
+<!-- /End Modal-->
+
+@section Scripts{
+    <script type="text/javascript">
+        Noty.overrideDefaults({
+            theme: 'limitless',
+            layout: 'topRight',
+            type: 'alert',
+            timeout: 1500
+        });
+
+        function createModal(url) {
+            $('#editContent').load(url);
+            $('#EditModal').modal('show');
+        }
+
+        $('#AddModal').on('hidden.bs.modal', function (e) {
+            $(this).find('form')[0].reset();
+        });
+
+        $("#Add").click(function (e) {
+            e.preventDefault();
+
+            var divisi = new Object();
+            divisi.nama_divisi = $('#nama_divisi').val();
+            var token = $('input[name=__RequestVerificationToken]').val();
+
+            if (divisi.nama_divisi != "") {
+                $.ajax({
+                    url: '@Url.Action("Add")',
+                    type: 'POST',
+                    data: { __RequestVerificationToken: token, _Divisi: divisi },
+                    success: function (data) {
+                        $('#AddModal').modal('hide');
+                        if(data=="0")
+                            new Noty({
+                                text: 'Data has been added successfuly.',
+                                type: 'success',
+                                callbacks: {
+                                    afterClose: function () {
+                                        location.reload();
+                                    }
+                                }
+                            }).show();
+                        else
+                            new Noty({
+                                text: 'Data has failed to be saved.',
+                                type: 'error'
+                            }).show();
+                    },
+                    error: function () {
+                        $('#AddModal').modal('hide');
+                        new Noty({
+                            text: 'Data has failed to be saved.',
+                            type: 'error'
+                        }).show();
+                    }
+                });
+            }
+        });
+
+        function deleteItem(id) {
+            var token = $('input[name=__RequestVerificationToken]').val();
+
+            swal({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-danger',
+                buttonsStyling: false
+            }).then((isDelete) => {
+                if (isDelete.value) {
+                    $.ajax({
+                        url: '@Url.Action("Delete")',
+                        type: 'POST',
+                        data: { __RequestVerificationToken: token, id: JSON.stringify(id) },
+                        success: function (data) {
+                            if(data == "0")
+                                swal({
+                                    type: 'success',
+                                    title: 'Deleted!',
+                                    text: 'Data has successfully been deleted.',
+                                    timer: 1500
+                                }).then(function(){
+                                    location.reload();
+                                });
+                            else
+                                swal(
+                                    'Deleted!',
+                                    'Data has failed to be deleted.',
+                                    'error'
+                                );
+                        },
+                        error: function () {
+                            swal(
+                                'Deleted!',
+                                'Data has failed to be deleted.',
+                                'error'
+                            );
+                        }
+                    });
+                } else {
+                    swal('Data is safe!');
+                }
+            });
+        }
+    </script>
+}

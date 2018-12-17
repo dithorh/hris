@@ -45,9 +45,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dapper, Version=1.50.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dapper.1.50.5\lib\net451\Dapper.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -162,40 +159,80 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\CCTRController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DivisionController.cs" />
     <Compile Include="Areas\Admin\Controllers\EmployeeController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LeaveApprovalController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PositionController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PosLvlController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SubPosLvlController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserController.cs" />
+    <Compile Include="Areas\Employee\Controllers\EducationController.cs" />
+    <Compile Include="Areas\Employee\Controllers\FamilyController.cs" />
     <Compile Include="Areas\Employee\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Employee\Controllers\JobController.cs" />
+    <Compile Include="Areas\Employee\Controllers\LeaveController.cs" />
     <Compile Include="Areas\Employee\Controllers\ProfileController.cs" />
     <Compile Include="Areas\Employee\EmployeeAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="DAL\EmployeeConfiguration.cs" />
+    <Compile Include="DAL\HRISConfiguration.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Handler\AsyncMethod.cs" />
     <Compile Include="Handler\FormattedDbEntityValidationException.cs" />
     <Compile Include="Handler\IPagination.cs" />
-    <Compile Include="Helpers\EmployeeHelper.cs" />
+    <Compile Include="Handler\SessionTimeout.cs" />
+    <Compile Include="Helpers\HRISHelper.cs" />
     <Compile Include="Helpers\PasswordHashHelper.cs" />
-    <Compile Include="Models\agama.cs" />
-    <Compile Include="Models\alasan_berhenti.cs" />
-    <Compile Include="Models\cctr.cs" />
-    <Compile Include="Models\divisi.cs" />
-    <Compile Include="DAL\EmployeeContext.cs" />
-    <Compile Include="Models\fungsi.cs" />
-    <Compile Include="Models\golongan_bisnis.cs" />
-    <Compile Include="Models\golongan_jabatan.cs" />
+    <Compile Include="HRIS.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HRIS.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HRIS.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HRIS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HRIS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HRIS.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\hist_karyawan.cs" />
+    <Compile Include="DAL\HRISContext.cs" />
     <Compile Include="Models\karyawan.cs" />
-    <Compile Include="Models\level_jabatan.cs" />
-    <Compile Include="Models\lokasi_kerja.cs" />
-    <Compile Include="Models\masa_kerja.cs" />
+    <Compile Include="Models\keluarga.cs" />
     <Compile Include="Models\pendidikan.cs" />
-    <Compile Include="Models\simp.cs" />
-    <Compile Include="Models\status_pegawai.cs" />
-    <Compile Include="Models\sublevel.cs" />
+    <Compile Include="Models\pengajuan_cuti.cs" />
+    <Compile Include="Models\pengalaman_kerja.cs" />
+    <Compile Include="Models\ref_cctr.cs" />
+    <Compile Include="Models\ref_divisi.cs" />
+    <Compile Include="Models\ref_gol_jabatan.cs" />
+    <Compile Include="Models\ref_jurusan.cs" />
+    <Compile Include="Models\ref_lokasi_kerja.cs" />
+    <Compile Include="Models\ref_lvl_jabatan.cs" />
+    <Compile Include="Models\ref_sekolah.cs" />
+    <Compile Include="Models\ref_status_karyawan.cs" />
+    <Compile Include="Models\ref_sub_lvl_jabatan.cs" />
     <Compile Include="Models\user_login.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ApprovalLeaveViewModel.cs" />
+    <Compile Include="ViewModels\EmployeeDetailViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="HRIS.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HRIS.edmx</DependentUpon>
+      <LastGenOutput>HRIS.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="HRIS.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HRIS.edmx</DependentUpon>
+      <LastGenOutput>HRIS.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -210,7 +247,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\plugins\forms\login_validation.js" />
     <Content Include="Scripts\plugins\forms\selects\select2.min.js" />
+    <Content Include="Scripts\plugins\forms\validation\validate.min.js" />
     <Content Include="Scripts\plugins\loader\blockui.min.js" />
     <Content Include="Scripts\plugins\pickers\anytime.min.js" />
     <Content Include="Scripts\plugins\pickers\daterangepicker.js" />
@@ -247,10 +286,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\SIMP\" />
+    <Folder Include="Areas\Admin\Views\Leave\" />
     <Folder Include="Areas\Employee\Models\" />
-    <Folder Include="Areas\Employee\Views\Profile\" />
-    <Folder Include="Areas\Employee\Views\Shared\" />
+    <Folder Include="Areas\Employee\Views\Job\" />
     <Folder Include="Content\icons\" />
   </ItemGroup>
   <ItemGroup>
@@ -262,7 +300,6 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Employee\Create.cshtml" />
@@ -270,10 +307,46 @@
     <Content Include="Areas\Admin\Views\Employee\List.cshtml" />
     <Content Include="Areas\Admin\Views\Employee\List_Server.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Employee\Views\web.config" />
-    <Content Include="Areas\Employee\_ViewStart.cshtml" />
     <Content Include="Areas\Employee\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Employee\Views\web.config" />
+    <Content Include="Areas\Employee\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Employee\Views\Profile\Index.cshtml" />
+    <Content Include="Areas\Employee\Views\Profile\Personal.cshtml" />
+    <Content Include="Areas\Employee\Views\Profile\Family.cshtml" />
+    <Content Include="Areas\Employee\Views\Profile\Education.cshtml" />
+    <Content Include="Areas\Admin\Views\Division\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Division\Edit.cshtml" />
+    <Content Include="Areas\Employee\Views\Leave\Index.cshtml" />
+    <Content Include="Areas\Employee\Views\Leave\Edit.cshtml" />
+    <Content Include="Areas\Employee\Views\Profile\Employee.cshtml" />
+    <Content Include="Areas\Employee\Views\Profile\Bank.cshtml" />
+    <Content Include="Areas\Employee\Views\Profile\Job.cshtml" />
+    <Content Include="Areas\Admin\Views\Position\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Position\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\CCTR\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\CCTR\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\PosLvl\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\PosLvl\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\SubPosLvl\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\SubPosLvl\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_PartialLayout.cshtml" />
+    <EntityDeploy Include="HRIS.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>HRIS.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="HRIS.edmx.diagram">
+      <DependentUpon>HRIS.edmx</DependentUpon>
+    </Content>
+    <Content Include="Areas\Admin\Views\LeaveApproval\Index.cshtml" />
     <None Include="packages.config" />
+    <Content Include="Scripts\plugins\forms\styling\uniform.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
