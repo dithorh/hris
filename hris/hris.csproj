@@ -163,7 +163,7 @@
     <Compile Include="Areas\Admin\Controllers\DivisionController.cs" />
     <Compile Include="Areas\Admin\Controllers\EmployeeController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Admin\Controllers\LeaveApprovalController.cs" />
+    <Compile Include="Areas\Employee\Controllers\LeaveApprovalController.cs" />
     <Compile Include="Areas\Admin\Controllers\PositionController.cs" />
     <Compile Include="Areas\Admin\Controllers\PosLvlController.cs" />
     <Compile Include="Areas\Admin\Controllers\SubPosLvlController.cs" />
@@ -341,7 +341,7 @@
     <Content Include="HRIS.edmx.diagram">
       <DependentUpon>HRIS.edmx</DependentUpon>
     </Content>
-    <Content Include="Areas\Admin\Views\LeaveApproval\Index.cshtml" />
+    <Content Include="Areas\Employee\Views\LeaveApproval\Index.cshtml" />
     <None Include="packages.config" />
     <Content Include="Scripts\plugins\forms\styling\uniform.min.js" />
   </ItemGroup>

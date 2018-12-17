@@ -11,12 +11,12 @@ namespace hris.Areas.Admin.Controllers
     public class LeaveApprovalController : Controller
     {
         private HRISContext db = new HRISContext();
-
+       
         // GET: Admin/LeaveApproval
         public ActionResult Index()
         {
             var empID = (int)Session["emp_id"];
-            var leave = (from k in db.karyawan
+            var leaveApproval = (from k in db.karyawan
                          join pc in db.pengajuan_cuti on k.karyawan_id equals pc.karyawan_id
                          join hk in db.hist_karyawan on k.karyawan_id equals hk.karyawan_id
                          where hk.divisi_id == 6 &&
@@ -34,7 +34,7 @@ namespace hris.Areas.Admin.Controllers
                              status_approval2 = pc.status_approval2
                          }).ToList();
 
-            return View(leave);
+            return View(leaveApproval);
         }
     }
 }
