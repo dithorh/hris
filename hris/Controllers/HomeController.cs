@@ -49,11 +49,17 @@ namespace hris.Controllers
                                 Session["emp_id"] = query.karyawan_id;
                                 var emp_id = (int)Session["emp_id"];
                                 Session["pos"] = db.hist_karyawan
-                                    .OrderByDescending(x => x.tgl_mulai)
-                                    .Where(x => x.karyawan_id == emp_id)
-                                    .Select(x => x.gol_jabatan_id)
-                                    .Take(1)
-                                    .FirstOrDefault();
+                                                .OrderByDescending(x => x.tgl_mulai)
+                                                .Where(x => x.karyawan_id == emp_id)
+                                                .Select(x => x.gol_jabatan_id)
+                                                .Take(1)
+                                                .FirstOrDefault();
+                                Session["divisi_id"] = db.hist_karyawan
+                                                        .OrderByDescending(x => x.tgl_mulai)
+                                                        .Where(x => x.karyawan_id == emp_id)
+                                                        .Select(x => x.divisi_id)
+                                                        .Take(1)
+                                                        .FirstOrDefault();
 
                                 async.UpdateWorkdaysAndAge(emp_id);
 

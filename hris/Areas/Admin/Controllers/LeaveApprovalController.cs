@@ -3,18 +3,17 @@ using hris.Models;
 using hris.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace hris.Areas.Employee.Controllers
+namespace hris.Areas.Admin.Controllers
 {
     public class LeaveApprovalController : Controller
     {
         private HRISContext db = new HRISContext();
 
-        // GET: Employee/LeaveApproval
+        // GET: Admin/LeaveApproval
         [SessionTimeout]
         public ActionResult Index()
         {
@@ -39,33 +38,6 @@ namespace hris.Areas.Employee.Controllers
                                  }).ToList();
 
             return View(leaveApproval);
-        }
-
-        [ValidateAntiForgeryToken]
-        public JsonResult Edit(LeaveApprovalViewModel approvalLeave)
-        {
-            var approval = db.pengajuan_cuti.Find(approvalLeave.pengajuan_cuti_id);
-            approval.status_approval1 = approvalLeave.status_approval1;
-            approval.tgl_approval1 = approvalLeave.tgl_approval1;
-            approval.date_modified = DateTime.Now;
-
-            if (TryUpdateModel(approvalLeave))
-            {
-                try
-                {
-                    db.SaveChanges();
-
-                    return Json("0", JsonRequestBehavior.AllowGet);
-                }
-                catch (DataException)
-                {
-                    return Json("1", JsonRequestBehavior.AllowGet);
-                }
-            }
-            else
-            {
-                return Json("1", JsonRequestBehavior.AllowGet);
-            }
         }
     }
 }

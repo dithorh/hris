@@ -163,7 +163,7 @@
     <Compile Include="Areas\Admin\Controllers\DivisionController.cs" />
     <Compile Include="Areas\Admin\Controllers\EmployeeController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Employee\Controllers\LeaveApprovalController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LeaveApprovalController.cs" />
     <Compile Include="Areas\Admin\Controllers\PositionController.cs" />
     <Compile Include="Areas\Admin\Controllers\PosLvlController.cs" />
     <Compile Include="Areas\Admin\Controllers\SubPosLvlController.cs" />
@@ -172,6 +172,7 @@
     <Compile Include="Areas\Employee\Controllers\FamilyController.cs" />
     <Compile Include="Areas\Employee\Controllers\HomeController.cs" />
     <Compile Include="Areas\Employee\Controllers\JobController.cs" />
+    <Compile Include="Areas\Employee\Controllers\LeaveApprovalController.cs" />
     <Compile Include="Areas\Employee\Controllers\LeaveController.cs" />
     <Compile Include="Areas\Employee\Controllers\ProfileController.cs" />
     <Compile Include="Areas\Employee\EmployeeAreaRegistration.cs" />
@@ -219,7 +220,7 @@
     <Compile Include="Models\ref_sub_lvl_jabatan.cs" />
     <Compile Include="Models\user_login.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\ApprovalLeaveViewModel.cs" />
+    <Compile Include="ViewModels\LeaveApprovalViewModel.cs" />
     <Compile Include="ViewModels\EmployeeDetailViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -342,6 +343,7 @@
       <DependentUpon>HRIS.edmx</DependentUpon>
     </Content>
     <Content Include="Areas\Employee\Views\LeaveApproval\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\LeaveApproval\Index.cshtml" />
     <None Include="packages.config" />
     <Content Include="Scripts\plugins\forms\styling\uniform.min.js" />
   </ItemGroup>

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@if (Session["user_id"] == null) { new RedirectResult("~/Home/Index"); }
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -123,11 +124,8 @@
                                 <li class="nav-item"><a href="@Url.Action("List","Employee")" class="nav-link">Data Karyawan</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item nav-item-submenu">
-                            <a href="#" class="nav-link"><i class="icon-airplane2"></i> <span>Dokumen</span></a>
-                            <ul class="nav nav-group-sub" data-submenu-title="Cuti">
-                                <li class="nav-item"><a href="@Url.Action("List","Employee")" class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "User" ? "active" : "")">SIMP</a></li>
-                            </ul>
+                        <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "LeaveApproval" ? "nav-item-open" : "")">
+                            <a href="@Url.Action("Index", "LeaveApproval")" class="nav-link"><i class="icon-file-check2"></i> <span>Approval Cuti</span></a>
                         </li>
                         <!-- /main -->
                     </ul>

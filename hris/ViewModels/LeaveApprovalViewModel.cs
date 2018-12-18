@@ -5,9 +5,11 @@ using System.Web;
 
 namespace hris.ViewModels
 {
-    public class ApprovalLeaveViewModel
+    public class LeaveApprovalViewModel
     {
-        public int karyawan_id { get; set; }
+        public int pengajuan_cuti_id { get; set; }
+
+        public string nama_karyawan { get; set; }
 
         public DateTime? tgl_mulai_cuti { get; set; }
 
@@ -23,6 +25,10 @@ namespace hris.ViewModels
 
         public string status_approval1 { get; set; }
 
+        public DateTime? tgl_approval1 { get; set; }
+
         public string status_approval2 { get; set; }
+
+        public DateTime? tgl_approval2 { get; set; }
     }
 }

@@ -36,7 +36,17 @@ namespace hris.Areas.Employee.Controllers
                 pengajuan_Cuti.karyawan_id = (int)Session["emp_id"];
                 pengajuan_Cuti.tgl_pengajuan = DateTime.Now;
                 pengajuan_Cuti.status_approval1 = "Pending";
-                pengajuan_Cuti.status_approval2 = "Pending";
+
+                if (new[] { "Izin", "Setengah Hari", "Potong Gaji" }.Contains(value: pengajuan_Cuti.jenis_cuti))
+                {
+                    pengajuan_Cuti.status_approval2 = "Approved";
+                    pengajuan_Cuti.tgl_approval1 = DateTime.Now;
+                }
+                else
+                {
+                    pengajuan_Cuti.status_approval2 = "Pending";
+                }
+
                 pengajuan_Cuti.date_created = DateTime.Now;
 
                 db.pengajuan_cuti.Add(pengajuan_Cuti);

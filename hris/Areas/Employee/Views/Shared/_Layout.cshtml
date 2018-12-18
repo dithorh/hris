@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@if (Session["user_id"] == null) { new RedirectResult("~/Home/Index"); }
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -39,6 +40,7 @@
 
     @Scripts.Render("~/Scripts/app.js")
     <!-- /theme JS files -->
+    @RenderSection("Style", false)
 </head>
 <body class="navbar-top">
     <!-- Main navbar -->
@@ -110,8 +112,8 @@
                         </li>
                         @if (Session["pos"].ToString() == "4")
                         {
-                            <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Leave" ? "nav-item-open" : "")">
-                                <a href="@Url.Action("Index", "Leave")" class="nav-link"><i class="icon-file-check2"></i> <span>Approval Cuti</span></a>
+                            <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "LeaveApproval" ? "nav-item-open" : "")">
+                                <a href="@Url.Action("Index", "LeaveApproval")" class="nav-link"><i class="icon-file-check2"></i> <span>Approval Cuti</span></a>
                             </li>
                         }
                         <!-- /main -->
@@ -239,6 +241,29 @@
                             $('#AddModal').modal('show')
                         }
                     },
+                    {
+                        extend: 'excelHtml5',
+                        className: 'btn btn-light',
+                        text: '<i class="icon-file-spreadsheet mr-2"></i>EXL',
+                        exportOptions: {
+                            columns: [0, ':visible', 'th:not(:last-child)'],
+                            rows: { selected: true }
+                        }
+                    },
+                    {
+                        extend: 'colvis',
+                        text: '<i class="icon-grid7"></i>',
+                        className: 'btn bg-blue btn-icon dropdown-toggle',
+                        columns: ':not(.no-sort)',
+                        collectionLayout: ['four-column', ':not(.no-sort)'],
+                        postfixButtons: ['colvisRestore']
+                    }]
+                });
+
+                //Modals no add button
+                $('.dataTables-modals-noadd').DataTable({
+                    responsive: true,
+                    buttons: [
                     {
                         extend: 'excelHtml5',
                         className: 'btn btn-light',
