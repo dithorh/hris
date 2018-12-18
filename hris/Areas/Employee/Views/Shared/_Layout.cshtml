@@ -110,11 +110,14 @@
                         <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Leave" ? "nav-item-open" : "")">
                             <a href="@Url.Action("Index","Leave")" class="nav-link"><i class="icon-airplane2"></i> <span>Pengajuan Cuti</span></a>
                         </li>
-                        @if (Session["pos"].ToString() == "4")
+                        @if (Session["pos"].ToString() != "-1")
                         {
-                            <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "LeaveApproval" ? "nav-item-open" : "")">
-                                <a href="@Url.Action("Index", "LeaveApproval")" class="nav-link"><i class="icon-file-check2"></i> <span>Approval Cuti</span></a>
-                            </li>
+                            if (Session["pos"].ToString() == "4")
+                            {
+                                <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "LeaveApproval" ? "nav-item-open" : "")">
+                                    <a href="@Url.Action("Index", "LeaveApproval")" class="nav-link"><i class="icon-file-check2"></i> <span>Approval Cuti</span></a>
+                                </li>
+                            }
                         }
                         <!-- /main -->
                     </ul>

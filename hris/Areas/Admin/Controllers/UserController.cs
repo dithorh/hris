@@ -42,11 +42,24 @@ namespace hris.Areas.Admin.Controllers
                 {
                     var keyNew = PasswordHashHelper.GeneratePassword(10);
                     var pass = PasswordHashHelper.EncodePassword(user_Login.user_id + DateTime.Now.Year.ToString(), keyNew);
-                    user_Login.password = pass;
-                    user_Login.vcode = keyNew;
-                    user_Login.date_created = DateTime.Now;
 
-                    db.user_login.Add(user_Login);
+                    user_login _Login = new user_login
+                    {
+                        user_id = user_Login.user_id,
+                        password = pass,
+                        vcode = keyNew,
+                        role = user_Login.role,
+                        status = user_Login.status,
+                        date_created = DateTime.Now
+                    };
+
+                    karyawan karyawan = new karyawan
+                    {
+                        user_id = _Login.user_id
+                    };
+
+                    db.user_login.Add(_Login);
+                    db.karyawan.Add(karyawan);
                     db.SaveChanges();
 
                     ModelState.Clear();

@@ -13,50 +13,58 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table">
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td class="font-weight-semibold">No Karyawan</td>
-                            <td>@(item.no_karyawan)</td>
-                        </tr>
-                        <tr>
-                            <td class="font-weight-semibold">Inisial</td>
-                            <td>@(item.inisial)</td>
-                        </tr>
-                        <tr>
-                            <td class="font-weight-semibold">Tanggal Masuk</td>
-                            <td>@(item.tgl_masuk)</td>
-                        </tr>
-                        <tr>
-                            <td class="font-weight-semibold">Divisi</td>
-                            <td>@(item.divisi)</td>
+            @if (Model.Count() > 0)
+            {
+                <table class="table">
+                    <tbody>
 
-                        </tr>
-                        <tr>
-                            <td class="font-weight-semibold">Job Title</td>
-                            <td>@(item.job_title)</td>
-                        </tr>
-                        <tr>
-                            <td class="font-weight-semibold">Status Karyawan</td>
-                            <td>@(item.status_karyawan)</td>
-                        </tr>
-                        <tr>
-                            <td class="font-weight-semibold">Lokasi Kerja</td>
-                            <td>@(item.lokasi_kerja)</td>
-                        </tr>
-                        <tr>
-                            <td class="font-weight-semibold">Status</td>
-                            <td>@(item.status_kerja)</td>
-                        </tr>
-                        <tr>
-                            <td class="font-weight-semibold">Keterangan</td>
-                            <td>@(item.keterangan)</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="font-weight-semibold">No Karyawan</td>
+                                <td>@(item.no_karyawan)</td>
+                            </tr>
+                            <tr>
+                                <td class="font-weight-semibold">Inisial</td>
+                                <td>@(item.inisial)</td>
+                            </tr>
+                            <tr>
+                                <td class="font-weight-semibold">Tanggal Masuk</td>
+                                <td>@(item.tgl_masuk)</td>
+                            </tr>
+                            <tr>
+                                <td class="font-weight-semibold">Divisi</td>
+                                <td>@(item.divisi)</td>
+
+                            </tr>
+                            <tr>
+                                <td class="font-weight-semibold">Job Title</td>
+                                <td>@(item.job_title)</td>
+                            </tr>
+                            <tr>
+                                <td class="font-weight-semibold">Status Karyawan</td>
+                                <td>@(item.status_karyawan)</td>
+                            </tr>
+                            <tr>
+                                <td class="font-weight-semibold">Lokasi Kerja</td>
+                                <td>@(item.lokasi_kerja)</td>
+                            </tr>
+                            <tr>
+                                <td class="font-weight-semibold">Status</td>
+                                <td>@(item.status_kerja)</td>
+                            </tr>
+                            <tr>
+                                <td class="font-weight-semibold">Keterangan</td>
+                                <td>@(item.keterangan)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div class="text-center font-weight-bold">No data available</div>
+            }
         </div>
     </div>
 </div>

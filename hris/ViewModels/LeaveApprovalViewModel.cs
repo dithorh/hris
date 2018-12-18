@@ -30,5 +30,7 @@ namespace hris.ViewModels
         public string status_approval2 { get; set; }
 
         public DateTime? tgl_approval2 { get; set; }
+
+        public DateTime tgl_mulai { get; set; }
     }
 }
