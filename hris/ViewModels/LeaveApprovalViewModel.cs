@@ -9,6 +9,10 @@ namespace hris.ViewModels
     {
         public int pengajuan_cuti_id { get; set; }
 
+        public int? divisi_id { get; set; }
+
+        public int? gol_jabatan_id { get; set; }
+
         public string nama_karyawan { get; set; }
 
         public DateTime? tgl_mulai_cuti { get; set; }
@@ -31,6 +35,6 @@ namespace hris.ViewModels
 
         public DateTime? tgl_approval2 { get; set; }
 
-        public DateTime tgl_mulai { get; set; }
+        public DateTime? tgl_mulai { get; set; }
     }
 }

@@ -48,18 +48,14 @@ namespace hris.Controllers
                                 Session["user_id"] = query.user_id;
                                 Session["emp_id"] = query.karyawan_id;
                                 var emp_id = (int)Session["emp_id"];
-                                Session["pos"] = Session["pos"] != null ? db.hist_karyawan
+                                var hist_kary = db.hist_karyawan
                                                 .OrderByDescending(x => x.tgl_mulai)
                                                 .Where(x => x.karyawan_id == emp_id)
-                                                .Select(x => x.gol_jabatan_id)
+                                                .Select(x => new { x.gol_jabatan_id, x.divisi_id })
                                                 .Take(1)
-                                                .FirstOrDefault() : -1;
-                                Session["divisi_id"] = Session["divisi_id"] != null ? db.hist_karyawan
-                                                        .OrderByDescending(x => x.tgl_mulai)
-                                                        .Where(x => x.karyawan_id == emp_id)
-                                                        .Select(x => x.divisi_id)
-                                                        .Take(1)
-                                                        .FirstOrDefault() : -1;
+                                                .FirstOrDefault();
+                                Session["pos"] = hist_kary.gol_jabatan_id != null ? hist_kary.gol_jabatan_id : -1;
+                                Session["divisi_id"] = hist_kary.divisi_id != null ? hist_kary.divisi_id : -1;
 
                                 async.UpdateWorkdaysAndAge(emp_id);
 

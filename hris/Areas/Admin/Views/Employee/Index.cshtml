@@ -1,0 +1,169 @@
+﻿@model IEnumerable<hris.Models.karyawan>
+
+@{
+    ViewBag.Title = "List";
+}
+<style>
+    th, td {
+        white-space: nowrap;
+    }
+
+    div.dt-button-collection.four-column {
+        width: 700px;
+    }
+
+    .dt-button-collection.four-column button.buttons-columnVisibility:before,
+    .dt-button-collection.four-column button.buttons-columnVisibility.active span:before {
+        display: block;
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        box-sizing: border-box;
+    }
+
+    .dt-button-collection.four-column button.buttons-columnVisibility:before {
+        content: ' ';
+        margin-top: 4px;
+        margin-left: -5px;
+        border: 1px solid #fff;
+        border-radius: 3px;
+    }
+
+    .dt-button-collection.four-column button.buttons-columnVisibility.active span:before {
+        content: '\2714';
+        margin-top: 0;
+        margin-left: -5px;
+        text-align: center;
+    }
+
+    .dt-button-collection.four-column button.buttons-columnVisibility span {
+        margin-left: 15px;
+    }
+
+    .datatable-scroll-wrap {
+        overflow-x: hidden !important;
+    }
+
+    .dropdown-menu {
+        min-width: 1rem !important;
+    }
+
+    div.dropdown-menu.dropdown-menu-right.show {
+        padding: 5px 0;
+        margin: 2px 0 0;
+    }
+
+    .dropdown-item {
+        margin: 0;
+        padding: 0 9px 0;
+    }
+</style>
+<div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+        <div class="page-title d-flex">
+            <h4><span class="font-weight-semibold">List Karyawan</span></h4>
+            <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+    </div>
+
+    <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+        <div class="d-flex">
+            <div class="breadcrumb">
+                <a href="#" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+                <a href="@Url.Action("List")" class="breadcrumb-item">Karyawan</a>
+                <span class="breadcrumb-item active">List Karyawan</span>
+            </div>
+
+            <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="card">
+        <div class="card-header header-elements-inline">
+            <div class="card-title"></div>
+            <div class="header-elements">
+                <div class="list-icons">
+                    <a class="list-icons-item" data-action="collapse"></a>
+                    <a class="list-icons-item" data-action="reload"></a>
+                    <a class="list-icons-item" data-action="remove"></a>
+                </div>
+            </div>
+        </div>
+        <table class="table dataTables-multiselect table-bordered">
+            <thead>
+                <tr>
+                    <th class="no-sort" style="width:13px;"></th>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>Email</th>
+                    <th>Tempat/Tanggal Lahir</th>
+                    <th>Jenis Kelamin</th>
+                    <th>Alamat</th>
+                    <th>Telp Rumah</th>
+                    <th>Hp</th>
+                    <th>Status Perkawinan</th>
+                    <th>Tgl Masuk</th>
+                    <th>Tgl Berhenti</th>
+                    <th>Status Kerja</th>
+                    <th class="no-sort">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int i = 0;
+
+                    foreach (var item in Model)
+                    {
+                        i++;
+
+                        <tr>
+                            <td></td>
+                            <td>
+                                @i
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.nama_karyawan)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.tempat_lahir)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.jenis_kelamin)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.alamat)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.telp_rumah)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.hp)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.status_perkawinan)
+                            </td>
+                            <td>
+                                @string.Format("{0:MM/dd/yyyy}", item.tgl_masuk)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.tgl_berhenti)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.status_kerja)
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Edit",new { id = item.karyawan_id })" class="text-inverse p-r-10" data-toggle="tooltip" title="Edit" data-original-title="Edit"><i class="icon-pencil7"></i></a>
+                                <a href="@Url.Action("Index","EmployeeHistory",new { id = @item.karyawan_id })" class="text-inverse" title="History" data-toggle="tooltip" data-original-title="Delete"><i class="icon-history"></i></a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -44,6 +44,7 @@
 
     @Scripts.Render("~/Scripts/app.js")
     <!-- /theme JS files -->
+    @RenderSection("Style", false)
 </head>
 <body class="navbar-top">
     <!-- Main navbar -->
@@ -121,7 +122,7 @@
                         <li class="nav-item nav-item-submenu">
                             <a href="#" class="nav-link"><i class="icon-profile"></i> <span>Karyawan</span></a>
                             <ul class="nav nav-group-sub" data-submenu-title="Karyawan">
-                                <li class="nav-item"><a href="@Url.Action("List","Employee")" class="nav-link">Data Karyawan</a></li>
+                                <li class="nav-item"><a href="@Url.Action("Index","Employee")" class="nav-link">Data Karyawan</a></li>
                             </ul>
                         </li>
                         <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "LeaveApproval" ? "nav-item-open" : "")">
@@ -199,11 +200,11 @@
                 // Setting datatable defaults
                 $.extend($.fn.dataTable.defaults, {
                     autoWidth: false,
-                    columnDefs: [{
-                        orderable: false,
-                        width: 100,
-                        targets: 'no-sort'
-                    }],
+                    //columnDefs: [{
+                    //    orderable: false,
+                    //    width: 100,
+                    //    targets: 'no-sort'
+                    //}],
                     dom: '<"datatable-header"fBl><"datatable-scroll-wrap"t><"datatable-footer"ip>',
                     language: {
                         search: '<span>Filter:</span> _INPUT_',
@@ -242,6 +243,57 @@
                     }]
                 });
 
+                //Databale multiselect
+                $('.dataTables-multiselect').DataTable({
+                    columnDefs: [{
+                        orderable: false,
+                        width: 50,
+                        targets: 'no-sort'
+                    },
+                    {
+                        targets: 0,
+                        checkboxes: {
+                            selectRow: true
+                        }
+                    }],
+                    scrollX: true,
+                    scrollY: '350px',
+                    scrollCollapse: true,
+                    fixedColumns: {
+                        leftColumns: 1,
+                        rightColumns: 1
+                    },
+                    buttons: [
+                    {
+                        className: 'btn bg-teal',
+                        text: '<i class="icon-plus2 mr-2"></i>Add',
+                        action: function(e, dt, node, config) {
+                            window.location.href = "@Url.Action("Create")";
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        className: 'btn btn-light',
+                        text: '<i class="icon-file-spreadsheet mr-2"></i>EXL',
+                        exportOptions: {
+                            columns: [0, ':visible', 'th:not(:last-child)'],
+                            rows: { selected: true }
+                        }
+                    },
+                    {
+                        extend: 'colvis',
+                        text: '<i class="icon-grid7"></i>',
+                        className: 'btn bg-blue btn-icon dropdown-toggle',
+                        columns: ':not(.no-sort)',
+                        collectionLayout: ['four-column', ':not(.no-sort)'],
+                        postfixButtons: ['colvisRestore']
+                    }],
+                    select: {
+                        style: 'multi'
+                    },
+                    order: [[1, 'asc']]
+                });
+
                 //Modals
                 $('.dataTables-modals').DataTable({
                     buttons: [
@@ -252,6 +304,29 @@
                             $('#AddModal').modal('show')
                         }
                     },
+                    {
+                        extend: 'excelHtml5',
+                        className: 'btn btn-light',
+                        text: '<i class="icon-file-spreadsheet mr-2"></i>EXL',
+                        exportOptions: {
+                            columns: [0, ':visible', 'th:not(:last-child)'],
+                            rows: { selected: true }
+                        }
+                    },
+                    {
+                        extend: 'colvis',
+                        text: '<i class="icon-grid7"></i>',
+                        className: 'btn bg-blue btn-icon dropdown-toggle',
+                        columns: ':not(.no-sort)',
+                        collectionLayout: ['four-column', ':not(.no-sort)'],
+                        postfixButtons: ['colvisRestore']
+                    }]
+                });
+
+                //Modals no add button
+                $('.dataTables-modals-noadd').DataTable({
+                    responsive: true,
+                    buttons: [
                     {
                         extend: 'excelHtml5',
                         className: 'btn btn-light',

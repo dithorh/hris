@@ -162,6 +162,7 @@
     <Compile Include="Areas\Admin\Controllers\CCTRController.cs" />
     <Compile Include="Areas\Admin\Controllers\DivisionController.cs" />
     <Compile Include="Areas\Admin\Controllers\EmployeeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\EmployeeHistoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\LeaveApprovalController.cs" />
     <Compile Include="Areas\Admin\Controllers\PositionController.cs" />
@@ -305,7 +306,7 @@
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Employee\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Employee\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Employee\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Employee\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Employee\List_Server.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Employee\Views\Home\Index.cshtml" />
@@ -344,6 +345,7 @@
     </Content>
     <Content Include="Areas\Employee\Views\LeaveApproval\Index.cshtml" />
     <Content Include="Areas\Admin\Views\LeaveApproval\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\EmployeeHistory\Index.cshtml" />
     <None Include="packages.config" />
     <Content Include="Scripts\plugins\forms\styling\uniform.min.js" />
   </ItemGroup>

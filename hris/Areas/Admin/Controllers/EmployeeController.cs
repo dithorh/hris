@@ -18,7 +18,7 @@ namespace hris.Areas.Admin.Controllers
         private HRISContext db = new HRISContext();
         private HRISHelper helper = new HRISHelper();
 
-        public ActionResult List()
+        public ActionResult Index()
         {
             var karyawan = db.karyawan.ToList();
 

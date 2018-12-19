@@ -1,4 +1,9 @@
 ﻿@model IEnumerable<hris.ViewModels.LeaveApprovalViewModel>
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
 @section Style{
     <style>
         .dropdown-menu {
@@ -149,24 +154,6 @@
                                         </div>
                                     }
                                 </td>
-                                @*<td align="center">
-                                        @if (item.status_approval2 == "Pending")
-                                        {
-                                            <span class="badge badge-warning">Pending</span>
-                                        }
-                                        else if (item.status_approval2 == "Approved")
-                                        {
-                                            <span class="badge badge-success">Approved</span>
-                                        }
-                                        else if (item.status_approval2 == "Rejected")
-                                        {
-                                            <span class="badge badge-danger">Rejected</span>
-                                        }
-                                    </td>*@
-                                @*<td align="center">
-                                        <a href="javascript:createModal('@Url.Action("Edit", new { id = item.pengajuan_cuti_id })')" class="text-inverse p-r-10" data-toggle="tooltip" title="" data-original-title="Edit"><i class="icon-pencil7"></i></a>
-                                        <a href="javascript:deleteItem(@item.pengajuan_cuti_id);" class="text-inverse" title="" data-toggle="tooltip" data-original-title="Delete"><i class="icon-eraser2"></i></a>
-                                    </td>*@
                             </tr>
                         }
                     }
@@ -175,78 +162,6 @@
         </table>
     </div>
 </div>
-
-<!--Modal-->
-<div id="AddModal" class="modal fade" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content border-teal">
-            <div class="modal-header bg-teal">
-                <h5 class="modal-title">Tambah Data</h5>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <form action="#" class="form-validate-jquery">
-                @Html.AntiForgeryToken()
-                <div class="modal-body">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label>Tanggal Cuti</label>
-                                <div class="input-group">
-                                    <span class="input-group-prepend">
-                                        <span class="input-group-text"><i class="icon-calendar22"></i></span>
-                                    </span>
-                                    <input type="text" class="form-control daterange-basic">
-                                    <input id="tgl_mulai_cuti" type="hidden">
-                                    <input id="tgl_selesai_cuti" type="hidden">
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <label>Jumlah Hari</label>
-                                <input id="jml_hari" type="text" class="form-control" readonly>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label>Jenis Cuti</label>
-                                <select id="jenis_cuti" class="form-control form-control-sm select2">
-                                    <option value="">Pilih</option>
-                                    <option value="Pribadi">Pribadi</option>
-                                    <option value="Izin">Izin</option>
-                                    <option value="Sakit">Sakit</option>
-                                    <option value="Hamil">Hamil</option>
-                                    <option value="Nikah">Nikah</option>
-                                    <option value="Setengah Hari">Setengah Hari</option>
-                                    <option value="Potong Gaji">Potong Gaji</option>
-                                    <option value="Lainya">Lainya</option>
-                                </select>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <label>Alasan</label>
-                                <input id="alasan" type="text" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button id="Add" type="submit" class="btn bg-primary ">Save</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<div id="EditModal" class="modal fade" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content border-teal" id="editContent">
-        </div>
-    </div>
-</div>
-<!-- /End Modal-->
 
 @section Scripts{
     <script type="text/javascript">
@@ -265,43 +180,6 @@
             if(curStatus != status){
                 updateItem(id, status);
             }
-        });
-
-        function createModal(url) {
-            $('#editContent').load(url);
-            $('#EditModal').modal('show');
-        }
-
-        $('#AddModal').on('hidden.bs.modal', function (e) {
-            $("#jenis_cuti").select2('val', '');
-            $(this).find('form')[0].reset();
-        });
-
-        $('.daterange-basic').daterangepicker({
-            applyClass: 'bg-slate-600',
-            cancelClass: 'btn-light',
-            autoApply: true,
-            autoUpdateInput: false,
-            locale: {
-                format: 'DD/MM/YYYY',
-                cancelLabel: 'Clear'
-            }
-        }, function (start, end, label) {
-            var one_day = 1000 * 60 * 60 * 24;
-            var dtstart = new Date(start);
-            var dtend = new Date(end);
-            var diffDays = Math.round(Math.abs((dtstart.getTime() - dtend.getTime()) / one_day));
-            $('#jml_hari').val(diffDays);
-        });
-
-        $('.daterange-basic').on('apply.daterangepicker', function (ev, picker) {
-            $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
-            $('#tgl_mulai_cuti').val(picker.startDate.format('MM/DD/YYYY'));
-            $('#tgl_selesai_cuti').val(picker.endDate.format('MM/DD/YYYY'));
-        });
-
-        $('.daterange-basic').on('cancel.daterangepicker', function (ev, picker) {
-            $(this).val('');
         });
 
         //Update

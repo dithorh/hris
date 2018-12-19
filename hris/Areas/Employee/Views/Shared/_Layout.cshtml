@@ -112,7 +112,7 @@
                         </li>
                         @if (Session["pos"].ToString() != "-1")
                         {
-                            if (Session["pos"].ToString() == "4")
+                            if (new[] { "4", "3" }.Contains(Session["pos"].ToString()))
                             {
                                 <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "LeaveApproval" ? "nav-item-open" : "")">
                                     <a href="@Url.Action("Index", "LeaveApproval")" class="nav-link"><i class="icon-file-check2"></i> <span>Approval Cuti</span></a>
