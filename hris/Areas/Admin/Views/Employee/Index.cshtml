@@ -157,7 +157,7 @@
                                 @Html.DisplayFor(modelItem => item.status_kerja)
                             </td>
                             <td>
-                                <a href="@Url.Action("Edit",new { id = item.karyawan_id })" class="text-inverse p-r-10" data-toggle="tooltip" title="Edit" data-original-title="Edit"><i class="icon-pencil7"></i></a>
+                                <a href="@Url.Action("Edit",new { id = item.karyawan_id })" class="text-inverse p-r-10" data-toggle="tooltip" title="Edit" data-original-title="Edit"><i class="icon-eye2"></i></a>
                                 <a href="@Url.Action("Index","EmployeeHistory",new { id = @item.karyawan_id })" class="text-inverse" title="History" data-toggle="tooltip" data-original-title="Delete"><i class="icon-history"></i></a>
                             </td>
                         </tr>

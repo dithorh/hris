@@ -221,6 +221,7 @@
     <Compile Include="Models\ref_sub_lvl_jabatan.cs" />
     <Compile Include="Models\user_login.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\EmployeeHistoryViewModel.cs" />
     <Compile Include="ViewModels\LeaveApprovalViewModel.cs" />
     <Compile Include="ViewModels\EmployeeDetailViewModel.cs" />
   </ItemGroup>
