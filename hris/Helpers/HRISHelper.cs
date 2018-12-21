@@ -8,6 +8,8 @@ using System.Configuration;
 using System.Data;
 using System.Web.Mvc;
 using System.Data.Entity;
+using System.Linq.Expressions;
+using System.Reflection;
 
 namespace hris.Helpers
 {
@@ -18,6 +20,7 @@ namespace hris.Helpers
         public List<SelectListItem> GetDropDownList(string table, string valueName, string id = "")
         {
             List<SelectListItem> items = new List<SelectListItem>();
+
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["HRISContext"].ConnectionString))
             {
                 string qry = "SELECT * FROM " + table;
@@ -46,6 +49,95 @@ namespace hris.Helpers
                     conn.Close();
                 }
             }
+
+            return items;
+        }
+
+        public List<SelectListItem> GetDropDownList(string table, int id = -1)
+        {
+            List<SelectListItem> items = new List<SelectListItem>();
+
+            switch (table)
+            {
+                case "divisi":
+                    items = new[] { new SelectListItem { Text = "-1", Value = "Pilih", Selected = true } }
+                    .Concat(
+                        db.ref_divisi.Select(s => new SelectListItem
+                        {
+                            Text = s.divisi_id.ToString(),
+                            Value = s.nama_divisi,
+                            Selected = (s.divisi_id == id ? true : false)
+                        })
+                    ).ToList();
+                    break;
+                case "cctr":
+                    items = new[] { new SelectListItem { Text = "-1", Value = "Pilih", Selected = true } }
+                    .Concat(
+                        db.ref_cctr.Select(s => new SelectListItem
+                        {
+                            Text = s.cctr_id.ToString(),
+                            Value = s.cctr,
+                            Selected = (s.cctr_id == id ? true : false)
+                        })
+                    ).ToList();
+                    break;
+                case "jabatan":
+                    items = new[] { new SelectListItem { Text = "-1", Value = "Pilih", Selected = true } }
+                    .Concat(
+                        db.ref_gol_jabatan.Select(s => new SelectListItem
+                        {
+                            Text = s.gol_jabatan_id.ToString(),
+                            Value = s.nama_jabatan,
+                            Selected = (s.gol_jabatan_id == id ? true : false)
+                        })
+                    ).ToList();
+                    break;
+                case "lvljabatan":
+                    items = new[] { new SelectListItem { Text = "-1", Value = "Pilih", Selected = true } }
+                    .Concat(
+                        db.ref_lvl_jabatan.Select(s => new SelectListItem
+                        {
+                            Text = s.lvl_jabatan_id.ToString(),
+                            Value = s.lvl_jabatan,
+                            Selected = (s.lvl_jabatan_id == id ? true : false)
+                        })
+                    ).ToList();
+                    break;
+                case "sublvljabatan":
+                    items = new[] { new SelectListItem { Text = "-1", Value = "Pilih", Selected = true } }
+                    .Concat(
+                        db.ref_sub_lvl_jabatan.Select(s => new SelectListItem
+                        {
+                            Text = s.sub_lvl_jabatan_id.ToString(),
+                            Value = s.sub_lvl_jabatan,
+                            Selected = (s.sub_lvl_jabatan_id == id ? true : false)
+                        })
+                    ).ToList();
+                    break;
+                case "status":
+                    items = new[] { new SelectListItem { Text = "-1", Value = "Pilih", Selected = true } }
+                    .Concat(
+                        db.ref_status_karyawan.Select(s => new SelectListItem
+                        {
+                            Text = s.status_karyawan_id.ToString(),
+                            Value = s.status_karyawan,
+                            Selected = (s.status_karyawan_id == id ? true : false)
+                        })
+                    ).ToList();
+                    break;
+                case "lokasi":
+                    items = new[] { new SelectListItem { Text = "-1", Value = "Pilih", Selected = true } }
+                    .Concat(
+                        db.ref_lokasi_kerja.Select(s => new SelectListItem
+                        {
+                            Text = s.lokasi_kerja_id.ToString(),
+                            Value = s.nama_lokasi,
+                            Selected = (s.lokasi_kerja_id == id ? true : false)
+                        })
+                    ).ToList();
+                    break;
+            }
+
             return items;
         }
 

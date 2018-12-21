@@ -15,6 +15,7 @@
     @Styles.Render("~/Content/layout.min.css")
     @Styles.Render("~/Content/components.min.css")
     @Styles.Render("~/Content/colors.min.css")
+    @Styles.Render("~/Content/dataTables_userDef.min.css")
     @Styles.Render("~/Content/plugins/dataTables/dataTables.checkboxes.css")
     <!-- /global stylesheets -->
     <!-- Core JS files -->
@@ -119,11 +120,8 @@
                                 <li class="nav-item"><a href="@Url.Action("Index","SubPosLvl")" class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "SubPosLvl" ? "active" : "")">Sub Level Jabatan</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item nav-item-submenu">
-                            <a href="#" class="nav-link"><i class="icon-profile"></i> <span>Karyawan</span></a>
-                            <ul class="nav nav-group-sub" data-submenu-title="Karyawan">
-                                <li class="nav-item"><a href="@Url.Action("Index","Employee")" class="nav-link">Data Karyawan</a></li>
-                            </ul>
+                        <li class="nav-item @(new[] {"Employee","EmployeeHistory"}.Contains(ViewContext.RouteData.Values["Controller"].ToString()) ? "nav-item-open" : "")">
+                            <a href="@Url.Action("Index","Employee")" class="nav-link"><i class="icon-profile"></i> <span>Karyawan</span></a>
                         </li>
                         <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "LeaveApproval" ? "nav-item-open" : "")">
                             <a href="@Url.Action("Index", "LeaveApproval")" class="nav-link"><i class="icon-file-check2"></i> <span>Approval Cuti</span></a>
@@ -200,11 +198,11 @@
                 // Setting datatable defaults
                 $.extend($.fn.dataTable.defaults, {
                     autoWidth: false,
-                    //columnDefs: [{
-                    //    orderable: false,
-                    //    width: 100,
-                    //    targets: 'no-sort'
-                    //}],
+                    columnDefs: [{
+                        orderable: false,
+                        width: 100,
+                        targets: 'no-sort'
+                    }],
                     dom: '<"datatable-header"fBl><"datatable-scroll-wrap"t><"datatable-footer"ip>',
                     language: {
                         search: '<span>Filter:</span> _INPUT_',
@@ -264,13 +262,13 @@
                         rightColumns: 1
                     },
                     buttons: [
-                    {
+                    @*{
                         className: 'btn bg-teal',
                         text: '<i class="icon-plus2 mr-2"></i>Add',
                         action: function(e, dt, node, config) {
                             window.location.href = "@Url.Action("Create")";
                         }
-                    },
+                    },*@
                     {
                         extend: 'excelHtml5',
                         className: 'btn btn-light',
@@ -303,23 +301,6 @@
                         action: function(e, dt, node, config) {
                             $('#AddModal').modal('show')
                         }
-                    },
-                    {
-                        extend: 'excelHtml5',
-                        className: 'btn btn-light',
-                        text: '<i class="icon-file-spreadsheet mr-2"></i>EXL',
-                        exportOptions: {
-                            columns: [0, ':visible', 'th:not(:last-child)'],
-                            rows: { selected: true }
-                        }
-                    },
-                    {
-                        extend: 'colvis',
-                        text: '<i class="icon-grid7"></i>',
-                        className: 'btn bg-blue btn-icon dropdown-toggle',
-                        columns: ':not(.no-sort)',
-                        collectionLayout: ['four-column', ':not(.no-sort)'],
-                        postfixButtons: ['colvisRestore']
                     }]
                 });
 

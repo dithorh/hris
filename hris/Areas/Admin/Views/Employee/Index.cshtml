@@ -80,8 +80,8 @@
 </div>
 
 <div class="content">
-    <div class="card">
-        <div class="card-header header-elements-inline">
+    <div class="card border-dark">
+        <div class="card-header header-elements-inline bg-slate-600">
             <div class="card-title"></div>
             <div class="header-elements">
                 <div class="list-icons">
@@ -91,7 +91,7 @@
                 </div>
             </div>
         </div>
-        <table class="table dataTables-multiselect table-bordered">
+        <table class="table dataTables-multiselect table-bordered nowrap">
             <thead>
                 <tr>
                     <th class="no-sort" style="width:13px;"></th>
@@ -157,8 +157,10 @@
                                 @Html.DisplayFor(modelItem => item.status_kerja)
                             </td>
                             <td>
-                                <a href="@Url.Action("Edit",new { id = item.karyawan_id })" class="text-inverse p-r-10" data-toggle="tooltip" title="Edit" data-original-title="Edit"><i class="icon-eye2"></i></a>
-                                <a href="@Url.Action("Index","EmployeeHistory",new { id = @item.karyawan_id })" class="text-inverse" title="History" data-toggle="tooltip" data-original-title="Delete"><i class="icon-history"></i></a>
+                                <div class="btn-group-sm">
+                                    <button type="button" class="btn btn-outline bg-primary border-primary text-primary btn-icon btn-sm" onclick="location.href = '@Url.Action("Edit",new { id = item.karyawan_id })';"><i class="icon-eye2"></i></button>
+                                    <button type="button" class="btn btn-outline bg-primary border-primary text-primary btn-icon btn-sm" onclick="location.href = '@Url.Action("Index","EmployeeHistory",new { id = @item.karyawan_id })';"><i class="icon-history"></i></button>
+                                </div>
                             </td>
                         </tr>
                     }

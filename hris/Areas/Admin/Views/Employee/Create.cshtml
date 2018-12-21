@@ -34,44 +34,51 @@
                     <div class="row">
                         <div class="col-sm-12 col-lg-6">
                             <div class="form-group ">
-                                <label for="nama_lengkap">Nama Lengkap</label>
-                                @Html.TextBoxFor(m => m.NAMA_LENGKAP, new { @class = "form-control form-control-sm", Name = "NAMA_LENGKAP" })
+                                <label>User ID</label>
+                                @Html.TextBoxFor(m => m.user_id, new { @class = "form-control form-control-sm", Name = "user_id", @readonly = "true" })
                             </div>
                         </div>
                         <div class="col-sm-12 col-lg-6">
                             <div class="form-group ">
-                                <label for="inisial">Inisial</label>
-                                @Html.TextBoxFor(m => m.INISIAL, new { @class = "form-control form-control-sm", Name = "INISIAL" })
+                                <label>Nama Lengkap</label>
+                                @Html.TextBoxFor(m => m.nama_karyawan, new { @class = "form-control form-control-sm", Name = "nama_karyawan" })
                             </div>
                         </div>
                         <div class="col-sm-12 col-lg-6">
                             <div class="form-group ">
-                                <label for="no_kk">No Kartu Keluarga</label>
-                                @Html.TextBoxFor(m => m.KARTU_KELUARGA, new { @class = "form-control form-control-sm form-control form-control-sm-sm", Name = "KARTU_KELUARGA" })
+                                <label>Inisial</label>
+                                @Html.TextBoxFor(m => m.inisial, new { @class = "form-control form-control-sm", Name = "inisial", @readonly = "true" })
                             </div>
                         </div>
                         <div class="col-sm-12 col-lg-6">
                             <div class="form-group ">
-                                <label for="no_ktp">No KTP</label>
-                                @Html.TextBoxFor(m => m.KTP, new { @class = "form-control form-control-sm form-control form-control-sm-sm", Name = "KTP" })
+                                <label for="jns_kelamin">Jenis Kelamin</label>
+                                <div class="form-group">
+                                    <div class="form-check form-check-inline">
+                                        <div class="custom-control custom-radio">
+                                            @Html.RadioButtonFor(m => m.jenis_kelamin, "Laki-laki", new { id = "jns_kelamin1", Name = "jenis_kelamin", @class = "custom-control-input" })
+                                            <label class="custom-control-label">Laki-laki</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <div class="custom-control custom-radio">
+                                            @Html.RadioButtonFor(m => m.jenis_kelamin, "Perempuan", new { id = "jns_kelamin2", Name = "jenis_kelamin", @class = "custom-control-input" })
+                                            <label class="custom-control-label">Perempuan</label>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-sm-12 col-lg-6">
                             <div class="form-group ">
-                                <label for="no_npwp">No NPWP</label>
-                                @Html.TextBoxFor(m => m.NPWP, new { @class = "form-control form-control-sm form-control form-control-sm-sm", Name = "NPWP" })
+                                <label>Email</label>
+                                @Html.TextBoxFor(m => m.email, new { @class = "form-control form-control-sm", Name = "email" })
                             </div>
                         </div>
                         <div class="col-sm-12 col-lg-6">
                             <div class="form-group ">
-                                <label for="karyawan_id">No Karyawan</label>
-                                @Html.TextBoxFor(m => m.KARYAWAN_ID, new { @class = "form-control form-control-sm form-control form-control-sm-sm", Name = "KARYAWAN_ID" })
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-lg-6">
-                            <div class="form-group ">
-                                <label for="tempat_lahir">Tempat Lahir</label>
-                                @Html.TextBoxFor(m => m.TEMPAT_LAHIR, new { @class = "form-control form-control-sm", Name = "TEMPAT_LAHIR" })
+                                <label>Tempat Lahir</label>
+                                @Html.TextBoxFor(m => m.tempat_lahir, new { @class = "form-control form-control-sm", Name = "tempat_lahir" })
                             </div>
                         </div>
                         <div class="col-sm-12 col-lg-6">
@@ -81,20 +88,84 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="icon-calendar"></i></span>
                                     </div>
-                                    @Html.TextBoxFor(m => m.TGL_LAHIR, new { @class = "form-control form-control-sm", Name = "TGL_LAHIR" })
+                                    @Html.TextBoxFor(m => m.tgl_lahir, new { @class = "form-control form-control-sm", Name = "tgl_lahir" })
                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group pt-2">
+                                <label class="d-block">Status Perkawinan</label>
+                                <div class="custom-control custom-radio">
+                                    @Html.RadioButtonFor(m => m.status_perkawinan, "Menikah", new { id = "status_perkawinan1", Name = "status_perkawinan", @class = "custom-control-input" })
+                                    <label class="custom-control-label" for="status_perkawinan1">Menikah</label>
+                                </div>
+
+                                <div class="custom-control custom-radio">
+                                    @Html.RadioButtonFor(m => m.status_perkawinan, "Belum Menikah", new { id = "status_perkawinan2", Name = "status_perkawinan", @class = "custom-control-input" })
+                                    <label class="custom-control-label" for="status_perkawinan2">Belum Menikah</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group">
+                                <label>Agama</label>
+                                <select class="form-control form-control-sm select2" name="agama">
+                                    <option value="">Pilih</option>
+                                    <option value="Islam">Islam</option>
+                                    <option value="Kristen">Kristen</option>
+                                    <option value="Katholik">Katholik</option>
+                                    <option value="Hindu">Hindu</option>
+                                    <option value="Budha">Budha</option>
+                                    <option value="Others">Others</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group ">
+                                <label for="telp_rumah">No Telp Rumah</label>
+                                @Html.TextBoxFor(m => m.telp_rumah, new { @class = "form-control form-control-sm", Name = "telp_rumah" })
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group ">
+                                <label for="hp">No Hp</label>
+                                @Html.TextBoxFor(m => m.hp, new { @class = "form-control form-control-sm", Name = "hp" })
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group ">
+                                <label for="no_ktp">KTP</label>
+                                @Html.TextBoxFor(m => m.ktp, new { @class = "form-control form-control-sm", Name = "ktp" })
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group ">
+                                <label for="no_npwp">Kartu Keluarga</label>
+                                @Html.TextBoxFor(m => m.kartu_keluarga, new { @class = "form-control form-control-sm", Name = "kartu_keluarga" })
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group ">
+                                <label for="karyawan_id">NPWP</label>
+                                @Html.TextBoxFor(m => m.npwp, new { @class = "form-control form-control-sm ", Name = "npwp" })
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group ">
+                                <label for="tempat_lahir">BPJS Kesehatan</label>
+                                @Html.TextBoxFor(m => m.bpjs_kesehatan, new { @class = "form-control form-control-sm", Name = "bpjs_kesehatan" })
                             </div>
                         </div>
                         <div class="col-sm-12 col-lg-6">
                             <div class="form-group ">
                                 <label for="usia">Usia</label>
-                                @Html.TextBoxFor(m => m.USIA, new { @class = "form-control form-control-sm", Name = "USIA" })
+                                @Html.TextBoxFor(m => m.usia, new { @class = "form-control form-control-sm", Name = "usia", @readonly = "true" })
                             </div>
                         </div>
                         <div class="col-sm-12 col-lg-6">
                             <div class="form-group">
                                 <label for="kel_usia">Kelompok Usia</label>
-                                <select class="form-control form-control-sm select2" name="KELOMPOK_USIA">
+                                <select class="form-control form-control-sm select2" name="kelompok_usia">
                                     <option value="-1">Pilih</option>
                                     <option value="1">21-25 Years</option>
                                     <option value="2">26-30 Years</option>
@@ -109,69 +180,12 @@
                         </div>
                         <div class="col-sm-12 col-lg-6">
                             <div class="form-group ">
-                                <label for="jns_kelamin">Jenis Kelamin</label>
-                                <div class="form-group">
-                                    <div class="form-check form-check-inline">
-                                        <div class="custom-control custom-radio">
-                                            @Html.RadioButtonFor(m => m.JENIS_KELAMIN, "Laki-laki", new { id = "jns_kelamin1", Name = "JENIS_KELAMIN", @class = "custom-control-input" })
-                                            <label class="custom-control-label" for="jns_kelamin1">Laki-laki</label>
-                                        </div>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <div class="custom-control custom-radio">
-                                            @Html.RadioButtonFor(m => m.JENIS_KELAMIN, "Perempuan", new { id = "jns_kelamin2", Name = "JENIS_KELAMIN", @class = "custom-control-input" })
-                                            <label class="custom-control-label" for="jns_kelamin2">Perempuan</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-lg-6">
-                            <div class="form-group ">
-                                <label for="agama">Agama</label>
-                                @Html.DropDownList("AGAMA", new SelectList(ViewBag.Agama, "Text", "Value", -1), new { @class = "form-control form-control-sm select2" })
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-lg-6">
-                            <div class="form-group ">
-                                <label for="alamat">Alamat</label>
-                                @Html.TextAreaFor(m => m.ALAMAT, new { @class = "form-control form-control-sm", @rows = "3", Name = "ALAMAT" })
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-lg-6">
-                            <div class="form-group pt-2">
-                                <label class="d-block">Status Perkawinan</label>
-                                <div class="custom-control custom-radio">
-                                    @Html.RadioButtonFor(m => m.STATUS, "Menikah", new { id = "status_perkawinan1", Name = "STATUS", @class = "custom-control-input" })
-                                    <label class="custom-control-label" for="status_perkawinan1">Menikah</label>
-                                </div>
-
-                                <div class="custom-control custom-radio">
-                                    @Html.RadioButtonFor(m => m.STATUS, "Belum Menikah", new { id = "status_perkawinan2", Name = "STATUS", @class = "custom-control-input" })
-                                    <label class="custom-control-label" for="status_perkawinan2">Belum Menikah</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-lg-6">
-                            <div class="form-group ">
-                                <label for="telp_rumah">No Telp Rumah</label>
-                                @Html.TextBoxFor(m => m.TELP_RUMAH, new { @class = "form-control form-control-sm", Name = "TELP_RUMAH" })
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-lg-6">
-                            <div class="form-group ">
-                                <label for="hp">No Hp</label>
-                                @Html.TextBoxFor(m => m.HP, new { @class = "form-control form-control-sm", Name = "HP" })
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-lg-6">
-                            <div class="form-group ">
                                 <label for="tgl_masuk_kerja">Masuk Kerja</label>
                                 <div class="input-group date">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="icon-calendar"></i></span>
                                     </div>
-                                    @Html.TextBoxFor(m => m.TANGGAL_MASUK, new { @class = "form-control form-control-sm", Name = "TANGGAL_MASUK" })
+                                    @Html.TextBoxFor(m => m.tgl_masuk, new { @class = "form-control form-control-sm", Name = "tgl_masuk" })
                                 </div>
                             </div>
                         </div>
@@ -182,153 +196,54 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="icon-calendar"></i></span>
                                     </div>
-                                    @Html.TextBoxFor(m => m.TANGGAL_BERHENTI, new { @class = "form-control form-control-sm", Name = "TANGGAL_BERHENTI" })
+                                    @Html.TextBoxFor(m => m.tgl_berhenti, new { @class = "form-control form-control-sm", Name = "tgl_berhenti" })
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12 col-lg-6">
+                            <div class="form-group ">
+                                <label for="usia">Masa Kerja</label>
+                                @Html.TextBoxFor(m => m.masa_kerja, new { @class = "form-control form-control-sm", Name = "masa_kerja", @readonly = "true" })
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-6">
                             <div class="form-group">
-                                <label for="alasan_berhenti">Alasan Berhenti</label>
-                                @Html.TextAreaFor(m => m.ALASAN_BERHENTI, new { @class = "form-control form-control-sm", @rows = "3", Name = "ALASAN_BERHENTI" })
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-lg-6">
-                            <div class="form-group">
-                                <label for="pend_terakhir">Pendidikan Terakhir</label>
-                                @Html.TextBoxFor(m => m.PEND_TERAKHIR, new { @class = "form-control form-control-sm", Name = "PEND_TERAKHIR" })
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-lg-6">
-                            <div class="form-group ">
-                                <label for="perg_tinggi">Nama Perguruan Tinggi</label>
-                                @Html.TextBoxFor(m => m.NAMA_SEKOLAH, new { @class = "form-control form-control-sm", Name = "NAMA_SEKOLAH" })
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-lg-6">
-                            <div class="form-group ">
-                                <label for="jurusan">Jurusan / Fakultas</label>
-                                @Html.TextBoxFor(m => m.JURUSAN, new { @class = "form-control form-control-sm", Name = "JURUSAN" })
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-lg-6">
-                            <div class="form-group ">
-                                <label for="status_pegawai">Status Kepegawaian</label>
-                                @Html.TextBoxFor(m => m.ELNUSA_STATUS, new { @class = "form-control form-control-sm", Name = "ELNUSA_STATUS" })
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-lg-6">
-                            <div class="form-group ">
-                                <label for="lvl_jabatan">Level Jabatan</label>
-                                @Html.DropDownList("LEVEL_JABATAN", new SelectList(ViewBag.LvlJabatan, "Text", "Value"), new { @class = "form-control form-control-sm select2" })
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-lg-6">
-                            <div class="form-group ">
-                                <label for="divisi">Divisi</label>
-                                @Html.DropDownList("DIVISI", new SelectList(ViewBag.Divisi, "Text", "Value", -1), new { @class = "form-control form-control-sm select2" })
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-lg-6">
-                            <div class="form-group ">
-                                <label for="jabatan">Jabatan</label>
-                                @Html.TextBoxFor(m => m.JABATAN, new { @class = "form-control form-control-sm", Name = "JABATAN" })
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-lg-6">
-                            <div class="form-group ">
-                                <label for="gol_jabatan">Golongan Jabatan</label>
-                                @Html.DropDownList("GOLONGAN", new SelectList(ViewBag.GolJabatan, "Text", "Value", -1), new { @class = "form-control form-control-sm select2" })
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-lg-6">
-                            <div class="form-group ">
-                                <label for="gol_bisnis">Golongan Bisnis</label>
-                                @Html.DropDownList("GOLONGAN_BISNIS", new SelectList(ViewBag.GolBisnis, "Text", "Value", -1), new { @class = "form-control form-control-sm select2" })
+                                <label for="kel_usia">Kelompok Masa Kerja</label>
+                                <select class="form-control form-control-sm select2" name="kelompok_masa_kerja">
+                                    <option value="-1">Pilih</option>
+                                    <option value="1">21-25 Years</option>
+                                    <option value="2">26-30 Years</option>
+                                    <option value="3">31-35 Years</option>
+                                    <option value="4">36-40 Years</option>
+                                    <option value="5">41-45 Years</option>
+                                    <option value="6">46-50 Years</option>
+                                    <option value="7">51-55 Years</option>
+                                    <option value="8">56 Years<</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-sm-12 col-lg-6">
                             <div class="form-group ">
                                 <label for="masuk_kerja">Masa Kerja</label>
-                                @Html.TextBoxFor(m => m.MASA_KERJA, new { @class = "form-control form-control-sm", Name = "MASA_KERJA" })
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-lg-6">
-                            <div class="form-group ">
-                                <label for="status_pegawai">Status Pegawai</label>
-                                @Html.DropDownList("STATUS", new SelectList(ViewBag.StatusPegawai, "Text", "Value", -1), new { @class = "form-control form-control-sm select2" })
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-lg-6">
-                            <div class="form-group ">
-                                <label for="status_kerja">Status Kerja</label>
-                                <div class="form-group">
-                                    <div class="form-check form-check-inline">
-                                        <div class="custom-control custom-radio">
-                                            @Html.RadioButtonFor(m => m.STATUS_KERJA, "Aktif", new { id = "status_kerja1", Name = "STATUS_KERJA", @class = "custom-control-input" })
-                                            <label class="custom-control-label" for="status_kerja1">Aktif</label>
-                                        </div>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <div class="custom-control custom-radio">
-                                            @Html.RadioButtonFor(m => m.STATUS_KERJA, "Non Aktif", new { id = "status_kerja2", Name = "STATUS_KERJA", @class = "custom-control-input" })
-                                            <label class="custom-control-label" for="status_kerja2">Non Aktif</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-lg-6">
-                            <div class="form-group ">
-                                <label for="lokasi_kerja">Lokasi Kerja</label>
-                                @Html.DropDownList("LOKASI_KERJA", new SelectList(ViewBag.LokasiKerja, "Text", "Value", -1), new { @class = "form-control form-control-sm select2" })
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-lg-6">
-                            <div class="form-group ">
-                                <label for="keterangan">Keterangan</label>
-                                @Html.TextAreaFor(m => m.KETERANGAN, new { @class = "form-control form-control-sm", @rows = "3", Name = "KETERANGAN" })
+                                @Html.TextBoxFor(m => m.masa_kerja, new { @class = "form-control form-control-sm", Name = "masa_kerja" })
                             </div>
                         </div>
                         <div class="col-sm-12 col-lg-6">
                             <div class="form-group ">
                                 <label for="no_rek_mandiri">No Rekening Mandiri</label>
-                                @Html.TextBoxFor(m => m.NOMOR_REKENING, new { @class = "form-control form-control-sm", Name = "NOMOR_REKENING" })
+                                @Html.TextBoxFor(m => m.no_rek, new { @class = "form-control form-control-sm", Name = "no_rek" })
                             </div>
                         </div>
                         <div class="col-sm-12 col-lg-6">
                             <div class="form-group ">
                                 <label for="no_rek_bni">No Rekening BNI</label>
-                                @Html.TextBoxFor(m => m.NOMOR_REKENING_BNI, new { @class = "form-control form-control-sm", Name = "NOMOR_REKENING_BNI" })
+                                @Html.TextBoxFor(m => m.no_rek_bni, new { @class = "form-control form-control-sm", Name = "no_rek_bni" })
                             </div>
                         </div>
                         <div class="col-sm-12 col-lg-6">
                             <div class="form-group ">
-                                <label for="job_grade">Job Grade</label>
-                                @Html.TextBoxFor(m => m.JOBGRADE, new { @class = "form-control form-control-sm", Name = "JOBGRADE" })
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-lg-6">
-                            <div class="form-group ">
-                                <label for="departemen">Departemen</label>
-                                @Html.TextBoxFor(m => m.ELNUSA_DEPARTMENT, new { @class = "form-control form-control-sm", Name = "ELNUSA_DEPARTMENT" })
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-lg-6">
-                            <div class="form-group ">
-                                <label for="status">Status</label>
-                                @Html.DropDownList("STATUS_PEGAWAI", new SelectList(ViewBag.StatusPegawai, "Text", "Value", -1), new { @class = "form-control form-control-sm select2" })
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-lg-6">
-                            <div class="form-group ">
-                                <label for="tech_talent">Tech Talent</label>
-                                @Html.TextBoxFor(m => m.TECHNICAL_TALENT, new { @class = "form-control form-control-sm", Name = "TECHNICAL_TALENT" })
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-lg-6">
-                            <div class="form-group ">
-                                <label for="status_team">Status Team</label>
-                                @Html.TextBoxFor(m => m.STATUS_TEAM, new { @class = "form-control form-control-sm", Name = "STATUS_TEAM" })
+                                <label for="keterangan">Keterangan</label>
+                                @Html.TextAreaFor(m => m.keterangan, new { @class = "form-control form-control-sm", @rows = "3", Name = "keterangan" })
                             </div>
                         </div>
                     </div>

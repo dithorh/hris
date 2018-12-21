@@ -40,19 +40,13 @@ namespace hris.Areas.Admin.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.Agama = helper.GetDropDownList("agama", "agama");
-            ViewBag.AlasanBerhenti = helper.GetDropDownList("alasan_berhenti", "alasan");
-            ViewBag.CCTR = helper.GetDropDownList("cctr", "cctr");
-            ViewBag.Divisi = helper.GetDropDownList("divisi", "divisi");
-            ViewBag.Fungsi = helper.GetDropDownList("fungsi", "fungsi");
-            ViewBag.GolBisnis = helper.GetDropDownList("golongan_bisnis", "gol_bisnis");
-            ViewBag.GolJabatan = helper.GetDropDownList("golongan_jabatan", "jabatan");
-            ViewBag.LvlJabatan = helper.GetDropDownList("level_jabatan", "lvl");
-            ViewBag.LokasiKerja = helper.GetDropDownList("lokasi_kerja", "lokasi");
-            ViewBag.MasaKerja = helper.GetDropDownList("masa_kerja", "masa_kerja");
-            ViewBag.Pendidikan = helper.GetDropDownList("pendidikan", "pendidikan");
-            ViewBag.StatusPegawai = helper.GetDropDownList("status_pegawai", "status");
-            ViewBag.SubLvl = helper.GetDropDownList("sublevel", "sublevel");
+            ViewBag.CCTR = helper.GetDropDownList("cctr");
+            ViewBag.Divisi = helper.GetDropDownList("divisi");
+            ViewBag.Jabatan = helper.GetDropDownList("jabatan");
+            ViewBag.LvlJabatan = helper.GetDropDownList("lvljabatan");
+            ViewBag.Lokasi = helper.GetDropDownList("lokasi");
+            ViewBag.Status = helper.GetDropDownList("status");
+            ViewBag.SubLvlJabatan = helper.GetDropDownList("sublvljabatan");
 
             return View();
         }
@@ -67,7 +61,7 @@ namespace hris.Areas.Admin.Controllers
                 {
                     db.karyawan.Add(karyawan);
                     db.SaveChanges();
-                    return RedirectToAction("List");
+                    return RedirectToAction("Index");
                 }
             }
             catch (DbEntityValidationException e)
@@ -77,7 +71,7 @@ namespace hris.Areas.Admin.Controllers
                 //Log the error (uncomment dex variable name and add a line here to write a log.
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
-            return RedirectToAction("List");
+            return RedirectToAction("Index");
         }
 
 
@@ -99,18 +93,13 @@ namespace hris.Areas.Admin.Controllers
             }
 
             ViewBag.Karyawan = employee;
-            //ViewBag.AlasanBerhenti = helper.GetDropDownList("alasan_berhenti", "alasan", query.ALASAN_BERHENTI);
-            //ViewBag.CCTR = helper.GetDropDownList("cctr", "cctr");
-            //ViewBag.Divisi = helper.GetDropDownList("divisi", "divisi", query.DIVISI);
-            //ViewBag.Fungsi = helper.GetDropDownList("fungsi", "fungsi");
-            //ViewBag.GolBisnis = helper.GetDropDownList("golongan_bisnis", "gol_bisnis", query.GOLONGAN_BISNIS);
-            //ViewBag.GolJabatan = helper.GetDropDownList("golongan_jabatan", "jabatan", query.GOLONGAN);
-            //ViewBag.LvlJabatan = helper.GetDropDownList("level_jabatan", "lvl", query.JABATAN);
-            //ViewBag.LokasiKerja = helper.GetDropDownList("lokasi_kerja", "lokasi", query.LOKASI_KERJA);
-            //ViewBag.MasaKerja = helper.GetDropDownList("masa_kerja", "masa_kerja", query.MASA_KERJA.ToString());
-            //ViewBag.Pendidikan = helper.GetDropDownList("pendidikan", "pendidikan", query.PEND_TERAKHIR);
-            //ViewBag.StatusPegawai = helper.GetDropDownList("status_pegawai", "status", query.STATUS_KARYAWAN);
-            //ViewBag.SubLvl = helper.GetDropDownList("sublevel", "sublevel", query.SUB_BAND);
+            ViewBag.CCTR = helper.GetDropDownList("cctr");
+            ViewBag.Divisi = helper.GetDropDownList("divisi");
+            ViewBag.Jabatan = helper.GetDropDownList("jabatan");
+            ViewBag.LvlJabatan = helper.GetDropDownList("lvljabatan");
+            ViewBag.Lokasi = helper.GetDropDownList("lokasi");
+            ViewBag.Status = helper.GetDropDownList("status");
+            ViewBag.SubLvlJabatan = helper.GetDropDownList("sublvljabatan");
 
             return View();
         }
@@ -123,7 +112,9 @@ namespace hris.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             var employeeToUpdate = db.karyawan.SingleOrDefault(m => m.karyawan_id == id);
+
             if (TryUpdateModel(employeeToUpdate))
             {
                 try

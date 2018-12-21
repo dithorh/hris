@@ -7,7 +7,7 @@
 <div class="page-header page-header-light">
     <div class="page-header-content header-elements-md-inline">
         <div class="page-title d-flex">
-            <h4><span class="font-weight-semibold">List Divisi</span></h4>
+            <h4><span class="font-weight-semibold">History Karyawan</span></h4>
             <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
         </div>
     </div>
@@ -16,8 +16,8 @@
         <div class="d-flex">
             <div class="breadcrumb">
                 <a href="#" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
-                <a href="@Url.Action("Index")" class="breadcrumb-item">Master</a>
-                <span class="breadcrumb-item active">Divisi</span>
+                <a href="@Url.Action("Index","Employee")" class="breadcrumb-item">Karyawan</a>
+                <span class="breadcrumb-item active">History Karyawan</span>
             </div>
 
             <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
@@ -37,7 +37,7 @@
                 </div>
             </div>
         </div>
-        <table class="table dataTables-modals table-bordered">
+        <table class="table dataTables-modals table-bordered nowrap">
             <thead>
                 <tr>
                     <th>No</th>
@@ -98,9 +98,19 @@
                                 <td>
                                     @item.keterangan
                                 </td>
-                                <td>
-                                    <a href="javascript:createModal('@Url.Action("Edit", new { id = item.hist_karyawan_id })')" class="text-inverse p-r-10" data-toggle="tooltip" title="" data-original-title="Edit"><i class="icon-pencil7"></i></a>
-                                    <a href="javascript:deleteItem(@item.hist_karyawan_id);" class="text-inverse" title="" data-toggle="tooltip" data-original-title="Delete"><i class="icon-eraser2"></i></a>
+                                <td align="center">
+                                    <div class="list-icons">
+                                        <div class="dropdown">
+                                            <a href="#" class="list-icons-item" data-toggle="dropdown">
+                                                <i class="icon-menu9"></i>
+                                            </a>
+
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="javascript:createModal('@Url.Action("Edit", new { id = item.hist_karyawan_id })')" class="dropdown-item"><i class="icon-pencil7"></i> Edit</a>
+                                                <a href="javascript:deleteItem(@item.hist_karyawan_id);" title="" class="dropdown-item"><i class="icon-eraser2"></i> Delete</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         }
@@ -113,7 +123,7 @@
 
 <!--Modal-->
 <div id="AddModal" class="modal fade" tabindex="-1">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog">
         <div class="modal-content border-teal">
             <div class="modal-header bg-teal">
                 <h5 class="modal-title">Tambah Data</h5>
@@ -124,13 +134,86 @@
                 @Html.AntiForgeryToken()
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>Nama Divisi</label>
-                        <input id="nama_divisi" type="text" class="form-control " required>
-
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Divisi</label>
+                                @Html.DropDownList("divisi_id", new SelectList(ViewBag.Divisi, "Text", "Value", -1), new { @class = "form-control form-control-sm select2" })
+                            </div>
+                            <div class="col-sm-6">
+                                <label>CCTR</label>
+                                @Html.DropDownList("cctr_id", new SelectList(ViewBag.CCTR, "Text", "Value", -1), new { @class = "form-control form-control-sm select2" })
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button id="Add" type="submit" class="btn bg-primary ">Save</button>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Job Title</label>
+                                <input id="job_title" type="text" class="form-control " required>
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Jabatan</label>
+                                @Html.DropDownList("gol_jabatan_id", new SelectList(ViewBag.Jabatan, "Text", "Value", -1), new { @class = "form-control form-control-sm select2" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Level Jabatan</label>
+                                @Html.DropDownList("lvl_jabatan_id", new SelectList(ViewBag.LvlJabatan, "Text", "Value", -1), new { @class = "form-control form-control-sm select2" })
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Jabatan</label>
+                                @Html.DropDownList("sub_lvl_jabatan_id", new SelectList(ViewBag.SubLvlJabatan, "Text", "Value", -1), new { @class = "form-control form-control-sm select2" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Status</label>
+                                @Html.DropDownList("status_karyawan", new SelectList(ViewBag.Status, "Text", "Value", -1), new { @class = "form-control form-control-sm select2" })
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Lokasi Kerja</label>
+                                @Html.DropDownList("lokasi_kerja_id", new SelectList(ViewBag.Lokasi, "Text", "Value", -1), new { @class = "form-control form-control-sm select2" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Tgl Mulai</label>
+                                <div class="input-group date">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-calendar"></i></span>
+                                    </div>
+                                    <input id="tgl_mulai" type="text" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Tgl Selesai</label>
+                                <div class="input-group date">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-calendar"></i></span>
+                                    </div>
+                                    <input id="tgl_selesai" type="text" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label>Keterangan</label>
+                                <textarea id="keterangan" class="form-control" cols="2"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="Add" type="submit" class="btn bg-primary ">Save</button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -147,6 +230,7 @@
 
 @section Scripts{
     <script type="text/javascript">
+
         Noty.overrideDefaults({
             theme: 'limitless',
             layout: 'topRight',
@@ -166,15 +250,26 @@
         $("#Add").click(function (e) {
             e.preventDefault();
 
-            var divisi = new Object();
-            divisi.nama_divisi = $('#nama_divisi').val();
+            var data = new Object();
+            data.karyawan_id = /[^/]*$/.exec(window.location.href)[0];
+            data.divisi_id = $('select[name=divisi_id]').val();
+            data.cctr_id = $('select[name=cctr_id]').val();
+            data.job_title = $('#job_title').val();
+            data.gol_jabatan_id = $('select[name=gol_jabatan_id]').val();
+            data.lvl_jabatan_id = $('select[name=lvl_jabatan_id]').val();
+            data.sub_lvl_jabatan_id = $('select[name=sub_lvl_jabatan_id]').val();
+            data.lokasi_kerja_id = $('select[name=lokasi_kerja_id]').val();
+            data.status_karyawan_id = $('select[name=status_karyawan_id]').val();
+            data.tgl_mulai = $('#tgl_mulai').val();
+            data.tgl_selesai = $('#tgl_selesai').val();
+            data.keterangan = $('#keterangan').val();
             var token = $('input[name=__RequestVerificationToken]').val();
 
-            if (divisi.nama_divisi != "") {
+            if (data.karyawan_id != "") {
                 $.ajax({
                     url: '@Url.Action("Add")',
                     type: 'POST',
-                    data: { __RequestVerificationToken: token, _Divisi: divisi },
+                    data: { __RequestVerificationToken: token, hist_Karyawan: data },
                     success: function (data) {
                         $('#AddModal').modal('hide');
                         if(data=="0")

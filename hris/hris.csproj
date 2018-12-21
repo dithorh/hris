@@ -226,6 +226,10 @@
     <Compile Include="ViewModels\EmployeeDetailViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\dataTables_userDef.css" />
+    <Content Include="Content\dataTables_userDef.min.css">
+      <DependentUpon>dataTables_userDef.css</DependentUpon>
+    </Content>
     <Content Include="HRIS.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>HRIS.edmx</DependentUpon>
@@ -347,6 +351,7 @@
     <Content Include="Areas\Employee\Views\LeaveApproval\Index.cshtml" />
     <Content Include="Areas\Admin\Views\LeaveApproval\Index.cshtml" />
     <Content Include="Areas\Admin\Views\EmployeeHistory\Index.cshtml" />
+    <None Include="bundleconfig.json" />
     <None Include="packages.config" />
     <Content Include="Scripts\plugins\forms\styling\uniform.min.js" />
   </ItemGroup>

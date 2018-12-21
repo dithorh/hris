@@ -280,5 +280,10 @@ namespace hris.Models
                 .Property(e => e.role)
                 .IsUnicode(false);
         }
+
+        public DbSet Set(string name)
+        {
+            return base.Set(Type.GetType(name));
+        }
     }
 }
